@@ -1,28 +1,36 @@
+body {
+    background-image: url("pictures/spaceBackground.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 .gridContainer .about {
     grid-area: au;
-    background-color: black;
+    background-color: wheat;
     text-align: left;
-    color: white;
+    color: black;
 }
 
 .gridContainer .ad1 {
     grid-area: ad1;
-    background-color: blue;
+    color: white;
 }
 
 .gridContainer .ad2 {
     grid-area: ad2;
-    background-color: aqua;
+    color: white;
 }
 
 .gridContainer .gameImages {
     grid-area: gi;
-    background-color: orange;
+    background-color: wheat;
 }
 
 .gridContainer .review {
     grid-area: re;
-    background-color: yellow;
+    background-color: wheat;
 }
 
 .gridContainer .payment {
@@ -30,9 +38,9 @@
 
 }
 
-.gridContainer .info {
+.info {
     grid-area: in;
-    background-color: purple;
+    background-color: wheat;
 }
 
 .gridContainerImages .itemImage1 {
@@ -65,37 +73,38 @@
 
 .gridContainerPayment .paymentInfo {
     grid-area: pi;
-    background-color: red;
+    background-color: wheat;
 }
 
-.gridContainerPayment .buttonGrid {
+/*.gridContainerPayment .buttonGrid {
     grid-area: bg;
     background-color: lime;
-}
+}*/
 
 .gridContainerPayment .paymentDifferentMethod {
     grid-area: pdm;
-    background-color: brown;
+    background-color: wheat;
 }
 
 .gridContainerPayment .humbleGrid {
     grid-area: hg;
-    background-color: aqua;
+    background-color: wheat;
 }
 
-.gridContainerFAQnNews {
-    background-color: orange;
+.gridContainerFAQnNews .list-group, .gridContainerFAQnNews .FAQtext {
+    grid-area: fn;
+    background-color: wheat;
+    color: black;
+    padding: 5px;
 }
 
 @media (min-width: 480px) {
     .gridContainer {
-        height: 120vh;
-        width: 100%;
         margin: 5px;
         display: grid;
         gap: 5px;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: auto auto auto auto auto 30%;
+        grid-template-rows: auto auto auto auto auto 10%;
         grid-template-areas:
 
         "au au au au"
@@ -146,7 +155,7 @@
     .gridContainerPayment {
         display: grid;
         grid-template-columns: repeat(1,1fr);
-        grid-template-rows: 20%;
+        grid-template-rows: auto;
         grid-gap: 5px;
         grid-template-areas:
                 "pi"
@@ -159,24 +168,33 @@
         font-size: 20px;
         padding: 5px;
         text-align: center;
+
     }
 
-    .buttonGrid, .humbleGrid {
-        margin: auto;
-        vertical-align: center;
+    .paymentButton {
+        align-items: center;
     }
 
     .humbleImage {
-        width: 70%;
-        margin-left: 17%;
+        height: 40%;
+        width: 40%;
     }
 
-    .gridContainerFAQ {
+
+
+    .info {
+        text-align: center;
+        line-height: 12vh;
+    }
+
+    .gridContainerFAQnNews {
         display: grid;
-        width: 50%;
-        grid-template-columns: repeat(1,1fr);
-        grid-template-rows: 20%;
-        grid-gap: 5px;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
         margin: auto;
     }
 
@@ -188,7 +206,7 @@
         display: grid;
         gap: 5px;
         grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: auto auto auto auto 20%;
+        grid-template-rows: auto auto auto auto 10%;
         grid-template-areas:
 
         "au au au au au au"
@@ -231,21 +249,18 @@
         "bg hg";
     }
 
-    .buttonGrid, .humbleGrid {
-        margin: auto;
-    }
-
     .humbleImage {
         width: 70%;
-        margin-left: 17%;
     }
 
-    .gridContainerFAQ {
+    .gridContainerFAQnNews {
         display: grid;
-        width: 50%;
-        grid-template-columns: repeat(1,1fr);
-        grid-template-rows: 20%;
-        grid-gap: 5px;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
         margin: auto;
     }
 
@@ -260,14 +275,14 @@
         display: grid;
         gap: 5px;
         grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: auto auto auto auto 25%;
+        grid-template-rows: auto auto auto auto 10%;
         grid-template-areas:
 
-        "au au au au au au au au"
+        ". au au au au au au ."
         "ad1 gi gi gi gi gi gi ad2"
         "ad1 re re re re re re ad2"
         "ad1 pa pa pa pa pa pa ad2"
-        "in in in in in in in in";
+        ". in in in in in in .";
     }
 
     div.about {
@@ -278,7 +293,7 @@
     .gridContainerImages {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        grid-template-rows: 20%;
+        grid-template-rows: auto;
         grid-gap: 5px;
         grid-template-areas:
 
@@ -297,7 +312,7 @@
     .gridContainerPayment {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        grid-template-rows: auto;
+        grid-template-rows: 30%;
         grid-gap: 5px;
         grid-template-areas:
         "pi pdm"
@@ -321,16 +336,7 @@
 
     .paymentInfo, .paymentDifferentMethod {
         font-size: 30px;
-        padding: 5px;
         text-align: center;
-    }
-    .gridContainerFAQnNews {
-        display: grid;
-        width: 50%;
-        grid-template-columns: repeat(1,1fr);
-        grid-template-rows: 20%;
-        grid-gap: 5px;
-        margin: auto;
     }
 
     .paymentButton {
@@ -343,6 +349,17 @@
 
     .btn {
         font-size: 50px;
+    }
+
+    .gridContainerFAQnNews {
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
+        margin: auto;
     }
 }
 
