@@ -1,0 +1,341 @@
+.gridContainer .about {
+    grid-area: au;
+    background-color: black;
+    text-align: left;
+    color: white;
+}
+
+.gridContainer .ad1 {
+    grid-area: ad1;
+    background-color: blue;
+}
+
+.gridContainer .ad2 {
+    grid-area: ad2;
+    background-color: aqua;
+}
+
+.gridContainer .gameImages {
+    grid-area: gi;
+    background-color: orange;
+}
+
+.gridContainer .review {
+    grid-area: re;
+    background-color: yellow;
+}
+
+.gridContainer .payment {
+    grid-area: pa;
+
+}
+
+.gridContainer .info {
+    grid-area: in;
+    background-color: purple;
+}
+
+.gridContainerImages .itemImage1 {
+    grid-area: image1;
+}
+
+.gridContainerImages .itemImage2 {
+    grid-area: image2;
+}
+
+.gridContainerImages .itemImage3 {
+    grid-area: image3;
+}
+
+.gridContainerImages .itemImage4 {
+    grid-area: image4;
+}
+
+.gridContainerReviews .itemReview1 {
+    grid-area: review1;
+}
+
+.gridContainerReviews .itemReview2 {
+    grid-area: review2;
+}
+
+.gridContainerReviews .itemReview3 {
+    grid-area: review3;
+}
+
+.gridContainerPayment .paymentInfo {
+    grid-area: pi;
+    background-color: red;
+}
+
+.gridContainerPayment .paymentButton {
+    grid-area: pb;
+    background-color: lime;
+}
+
+.gridContainerPayment .paymentDifferentMethod {
+    grid-area: pdm;
+    background-color: brown;
+}
+
+.gridContainerPayment .paymentButtonHumble {
+    grid-area: pbh;
+    background-color: aqua;
+}
+
+.gridContainerFAQnNews {
+    background-color: orange;
+}
+
+@media (min-width: 480px) {
+    .gridContainer {
+        height: 120vh;
+        width: 100%;
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 42% 52% 50% 50% 35% 30%;
+        grid-template-areas:
+
+        "au au au au"
+        "gi gi gi gi"
+        "re re re re"
+        "pa pa pa pa"
+        "ad1 ad1 ad2 ad2"
+        "in in in in";
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas: "image1" "image2";
+    }
+
+    .itemImage1 img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+    }
+
+    .itemImage2 img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+    }
+
+    div.about {
+        font-size: 17px;
+    }
+
+    .gridContainerFAQ {
+        display: grid;
+        width: 50%;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        margin: auto;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .gridContainer {
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto auto auto 25% 20%;
+        grid-template-areas:
+
+        "au au au au au au"
+        "ad1 gi gi gi gi ad2"
+        "ad1 re re re re ad2"
+        "ad1 pa pa pa pa ad2"
+        "in in in in in in";
+    }
+
+    div.about {
+        font-size: 18px;
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 50%;
+        grid-gap: 5px;
+        grid-template-areas:
+        "image1"
+        "image2"
+        "image3"
+        "image4";
+    }
+
+    .itemImage1 img, .itemImage2 img, .itemImage3 img, .itemImage4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .gridContainerReviews {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas: "review1" "review2" "review3";
+    }
+
+    .itemReview1 img, .itemReview2 img, .itemReview3 img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        padding: 5px;
+    }
+
+    .gridContainerPayment {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas:
+        "pi pdm"
+        "pb pbh";
+    }
+
+    .paymentInfo {
+        font-size: 30px;
+        padding: 5px;
+    }
+
+    .paymentDifferentMethod {
+        font-size: 30px;
+        padding: 5px;
+    }
+
+    .buttonForPayment {
+        background-color: grey;
+        color: white;
+        padding: 15px 30px;
+        text-align: center;
+        font-size: 25px;
+        border-radius: 8px;
+    }
+
+    .gridContainerFAQ {
+        display: grid;
+        width: 50%;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        margin: auto;
+    }
+
+}
+
+@media (min-width: 1080px) {
+
+    .gridContainer {
+        height: 120vh;
+        width: 110%;
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: auto auto auto auto 25%;
+        grid-template-areas:
+
+        "au au au au au au au au"
+        "ad1 gi gi gi gi gi gi ad2"
+        "ad1 re re re re re re ad2"
+        "ad1 pa pa pa pa pa pa ad2"
+        "in in in in in in in in";
+    }
+
+    div.about {
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas:
+
+        "image1 image2"
+        "image3 image4";
+    }
+
+    .gridContainerReviews {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas: "review1 review2 review3";
+    }
+
+    .gridContainerPayment {
+        display: inline-grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas:
+        "pi pdm"
+        "pb pbh";
+    }
+
+    .itemImage1 img,.itemImage2 img, .itemImage3 img, .itemImage4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 5px;
+    }
+
+    .itemReview1 img, .itemReview2 img, .itemReview3 img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        padding: 5px;
+    }
+
+    .paymentInfo {
+        font-size: 30px;
+        padding: 5px;
+    }
+
+    .paymentDifferentMethod {
+        font-size: 30px;
+        padding: 5px;
+    }
+    .gridContainerFAQnNews {
+        display: grid;
+        width: 50%;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        margin: auto;
+    }
+
+    .paymentButton {
+        align-items: center;
+    }
+
+    .list-group-item:hover {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
