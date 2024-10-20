@@ -209,6 +209,7 @@ body {
     }
 
     .gridContainerFAQnNews {
+        margin: 5px;
         display: grid;
         grid-template-columns: repeat(5,1fr);
         grid-template-rows: auto;
@@ -216,7 +217,7 @@ body {
                 ". fn fn fn . "
                 ". in in in . ";
         gap: 5px;
-        margin: auto;
+        /*margin: auto;*/
     }
 
     .btn {
@@ -299,6 +300,7 @@ body {
     }
 
     .gridContainerFAQnNews {
+        margin: 5px;
         display: grid;
         grid-template-columns: repeat(5,1fr);
         grid-template-rows: auto;
@@ -306,7 +308,7 @@ body {
                 ". fn fn fn . "
                 ". in in in . ";
         gap: 5px;
-        margin: auto;
+        /*margin: auto;*/
     }
 
 }
@@ -402,6 +404,7 @@ body {
     }
 
     .gridContainerFAQnNews {
+        margin: 5px;
         display: grid;
         grid-template-columns: repeat(5,1fr);
         grid-template-rows: auto;
@@ -409,7 +412,7 @@ body {
                 ". fn fn fn . "
                 ". in in in . ";
         gap: 5px;
-        margin: auto;
+        /*margin: auto;*/
     }
 
     .humbleImage {
