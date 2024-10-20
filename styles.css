@@ -323,8 +323,8 @@
         align-items: center;
     }
 
-    .list-group-item:hover {
-
+    .list-group {
+        font-size: 20px;
     }
 }
 
