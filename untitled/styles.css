@@ -1,0 +1,427 @@
+body {
+    background-image: url("pictures/spaceBackground.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.gridContainer .about {
+    grid-area: au;
+    background-color: wheat;
+    text-align: left;
+    color: black;
+}
+
+.gridContainer .ad1 {
+    grid-area: ad1;
+    color: white;
+}
+
+.gridContainer .ad2 {
+    grid-area: ad2;
+    color: white;
+}
+
+.gridContainer .gameImages {
+    grid-area: gi;
+    background-color: wheat;
+}
+
+.gridContainer .review {
+    grid-area: re;
+    background-color: wheat;
+}
+
+.gridContainer .payment {
+    grid-area: pa;
+
+}
+
+.info {
+    grid-area: in;
+    background-color: wheat;
+}
+
+.gridContainerImages .itemImage1 {
+    grid-area: image1;
+}
+
+.gridContainerImages .itemImage2 {
+    grid-area: image2;
+}
+
+.gridContainerImages .itemImage3 {
+    grid-area: image3;
+}
+
+.gridContainerImages .itemImage4 {
+    grid-area: image4;
+}
+
+.gridContainerReviews .itemReview1 {
+    grid-area: review1;
+}
+
+.gridContainerReviews .itemReview2 {
+    grid-area: review2;
+}
+
+.gridContainerReviews .itemReview3 {
+    grid-area: review3;
+}
+
+.gridContainerPayment .paymentInfo {
+    grid-area: pi;
+    background-color: wheat;
+}
+
+/*.gridContainerPayment .buttonGrid {
+    grid-area: bg;
+    background-color: lime;
+}*/
+
+.gridContainerPayment .paymentDifferentMethod {
+    grid-area: pdm;
+    background-color: wheat;
+}
+
+.gridContainerPayment .humbleGrid {
+    grid-area: hg;
+    background-color: wheat;
+}
+
+.gridContainerFAQnNews .list-group, .gridContainerFAQnNews .FAQtext {
+    grid-area: fn;
+    background-color: wheat;
+    color: black;
+    padding: 5px;
+}
+
+.gridContainerFAQnNews.info {
+    margin-top: 25%;
+}
+
+.infoButtons {
+    text-decoration: none;
+    color: black;
+}
+
+@media (min-width: 480px) {
+    .gridContainer {
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto auto auto auto 10%;
+        grid-template-areas:
+
+        "au au au au"
+        "gi gi gi gi"
+        "re re re re"
+        "pa pa pa pa"
+        "ad1 ad1 ad2 ad2"
+        "in in in in";
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 50%;
+        grid-gap: 5px;
+        grid-template-areas:
+        "image1"
+        "image2"
+        "image3"
+        "image4";
+    }
+
+    .itemImage1 img, .itemImage2 img, .itemImage3 img, .itemImage4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    div.about {
+        font-size: 17px;
+    }
+
+    .gridContainerReviews {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 20%;
+        grid-gap: 5px;
+        grid-template-areas: "review1" "review2" "review3";
+    }
+
+    .itemReview1 img, .itemReview2 img, .itemReview3 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 5px;
+    }
+
+    .gridContainerPayment {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas:
+                "pi"
+                "bg"
+                "pdm"
+                "hg";
+        height: auto;
+    }
+
+    .paymentInfo, .paymentDifferentMethod {
+        font-size: 20px;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
+    }
+
+    .humbleImage {
+        height: 20%;
+        width: 30%;
+    }
+
+    .paymentButton {
+        align-items: center;
+    }
+
+
+
+
+
+    .info {
+        text-align: center;
+        line-height: 12vh;
+    }
+
+    .gridContainerFAQnNews {
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
+        margin: auto;
+    }
+
+    .btn {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .gridContainer {
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto auto auto auto 10%;
+        grid-template-areas:
+
+        "au au au au au au"
+        "ad1 gi gi gi gi ad2"
+        "ad1 re re re re ad2"
+        "ad1 pa pa pa pa ad2"
+        "in in in in in in";
+    }
+
+    div.about {
+        font-size: 18px;
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: 50%;
+        grid-gap: 5px;
+        grid-template-areas:
+        "image1"
+        "image2"
+        "image3"
+        "image4";
+    }
+
+    .itemImage1 img, .itemImage2 img, .itemImage3 img, .itemImage4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+    .gridContainerPayment {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas:
+        "pi pdm"
+        "bg hg";
+    }
+
+    .paymentInfo, .paymentDifferentMethod {
+        font-size: 20px;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
+    }
+
+    .humbleImage {
+        height: 60%;
+        width: 50%;
+    }
+
+    .btn {
+        font-size: 30px;
+    }
+
+    .gridContainerFAQnNews {
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
+        margin: auto;
+    }
+
+}
+
+@media (min-width: 1080px) {
+
+    .gridContainer {
+        margin: 5px;
+        display: grid;
+        gap: 5px;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: auto auto auto auto 10%;
+        grid-template-areas:
+
+        ". au au au au au au ."
+        "ad1 gi gi gi gi gi gi ad2"
+        "ad1 re re re re re re ad2"
+        "ad1 pa pa pa pa pa pa ad2"
+        ". in in in in in in .";
+    }
+
+    div.about {
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .gridContainerImages {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas:
+
+        "image1 image2"
+        "image3 image4";
+    }
+
+    .gridContainerReviews {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas: "review1 review2 review3";
+    }
+
+    .gridContainerPayment {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: auto;
+        grid-gap: 5px;
+        grid-template-areas:
+        "pi pdm"
+        "bg hg";
+
+    }
+
+    .itemImage1 img,.itemImage2 img, .itemImage3 img, .itemImage4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 5px;
+    }
+
+    .itemReview1 img, .itemReview2 img, .itemReview3 img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        padding: 5px;
+    }
+
+    .paymentInfo, .paymentDifferentMethod {
+        font-size: 30px;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
+    }
+
+    .list-group {
+        font-size: 20px;
+    }
+
+    .btn {
+        font-size: 50px;
+    }
+
+    .gridContainerFAQnNews {
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+                ". fn fn fn . "
+                ". in in in . ";
+        gap: 5px;
+        margin: auto;
+    }
+
+    .humbleImage {
+        height: 70%;
+        width: 30%;
+        mix-blend-mode: multiply;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
