@@ -98,6 +98,15 @@ body {
     padding: 5px;
 }
 
+.gridContainerFAQnNews.info {
+    margin-top: 25%;
+}
+
+.infoButtons {
+    text-decoration: none;
+    color: black;
+}
+
 @media (min-width: 480px) {
     .gridContainer {
         margin: 5px;
@@ -148,7 +157,7 @@ body {
     .itemReview1 img, .itemReview2 img, .itemReview3 img {
         width: 100%;
         height: 100%;
-        background-size: cover;
+        object-fit: cover;
         padding: 5px;
     }
 
@@ -162,23 +171,33 @@ body {
                 "bg"
                 "pdm"
                 "hg";
+        height: auto;
     }
 
     .paymentInfo, .paymentDifferentMethod {
         font-size: 20px;
-        padding: 5px;
         text-align: center;
+        padding: 5px;
+    }
 
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
+    }
+
+    .humbleImage {
+        height: 20%;
+        width: 30%;
     }
 
     .paymentButton {
         align-items: center;
     }
 
-    .humbleImage {
-        height: 40%;
-        width: 40%;
-    }
+
 
 
 
@@ -242,15 +261,34 @@ body {
     .gridContainerPayment {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        grid-template-rows: 20%;
+        grid-template-rows: auto;
         grid-gap: 5px;
         grid-template-areas:
         "pi pdm"
         "bg hg";
     }
 
+    .paymentInfo, .paymentDifferentMethod {
+        font-size: 20px;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
+    }
+
     .humbleImage {
-        width: 70%;
+        height: 60%;
+        width: 50%;
+    }
+
+    .btn {
+        font-size: 30px;
     }
 
     .gridContainerFAQnNews {
@@ -269,8 +307,6 @@ body {
 @media (min-width: 1080px) {
 
     .gridContainer {
-        height: 120vh;
-        width: 110%;
         margin: 5px;
         display: grid;
         gap: 5px;
@@ -304,7 +340,7 @@ body {
     .gridContainerReviews {
         display: grid;
         grid-template-columns: repeat(3,1fr);
-        grid-template-rows: 20%;
+        grid-template-rows: auto;
         grid-gap: 5px;
         grid-template-areas: "review1 review2 review3";
     }
@@ -312,7 +348,7 @@ body {
     .gridContainerPayment {
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        grid-template-rows: 30%;
+        grid-template-rows: auto;
         grid-gap: 5px;
         grid-template-areas:
         "pi pdm"
@@ -337,10 +373,15 @@ body {
     .paymentInfo, .paymentDifferentMethod {
         font-size: 30px;
         text-align: center;
+        padding: 5px;
     }
 
-    .paymentButton {
-        align-items: center;
+    .paymentInfo {
+        height: auto;
+    }
+
+    .paymentDifferentMethod {
+        height: fit-content;
     }
 
     .list-group {
@@ -361,6 +402,13 @@ body {
         gap: 5px;
         margin: auto;
     }
+
+    .humbleImage {
+        height: 70%;
+        width: 30%;
+        mix-blend-mode: multiply;
+    }
+
 }
 
 
