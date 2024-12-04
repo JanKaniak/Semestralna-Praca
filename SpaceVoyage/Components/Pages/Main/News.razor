@@ -1,0 +1,96 @@
+﻿@page "/news"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<PatchnoteDataContext> PatchnoteDataContextFactory;
+
+<PageTitle>News</PageTitle>
+
+@if(CreateShowForm) {
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
+        <input type="text" class="form-control" id="titleForm" @bind="@NewPatchnote.Title" required />
+        <div class="mb-3">
+            <div id="Error" class="form-text">@ErrorMessage</div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="descriptionForm" rows="10" @bind="@NewPatchnote.Description"/>
+    </div>
+
+    <div class="input-group">
+        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+    </div>
+
+    <button type="button" class="nbt btn btn-danger" @onclick="CreateNewPatchnote">Yes</button>
+} else {
+    <div class="container text-center">
+        <div class="FAQtext">
+            @if (PatchnotesList != null && PatchnotesList.Count > 0)
+            {
+                <div class="list-group">
+                    @if (!EditShowForm && !ShowPatchnote)
+                    {
+                        <p>Patch notes</p>
+                        <div class="showPatchnotesList">
+                            <AuthorizeView Roles="Administrator">
+                                <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
+                            </AuthorizeView>
+                        </div>
+                    }
+                    @foreach (var patchnote in PatchnotesList)
+                    {
+                        @if (!EditShowForm && !ShowPatchnote)
+                        {
+                            <div class="showPatchnotesList">
+                            <a class="list-group-item list-group-item-action patchnote" @onclick="() => ShowSelectedPatchnote(patchnote)">
+                                <span>@patchnote.Title</span>
+                            </a>
+                                <AuthorizeView Roles="Administrator">
+                                    <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                        <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
+                                        <button class="btn btn-danger btn-sm" @onclick="() => RemovePatchnote(patchnote)">Remove</button>
+                                    </div>
+                                </AuthorizeView>
+                             </div>
+                            
+
+                        }
+                        else if (EditShowForm && !ShowPatchnote)
+                        {
+                             @if (PatchnoteToUpdate != null && PatchnoteToUpdate.Id == patchnote.Id)
+                                {
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                        <input type="text" class="form-control" id="titleForm" @bind="@PatchnoteToUpdate.Title">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                                        <textarea class="form-control" id="descriptionForm" rows="10" @bind="@PatchnoteToUpdate.Description"></textarea>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    </div>
+
+                                    <button type="button" class="nbt btn btn-danger" @onclick="UpdatePatchnote">Yes</button>
+                             }
+                        } else if (!EditShowForm && ShowPatchnote){
+                            if (PatchnoteToShow != null && PatchnoteToShow.Id == patchnote.Id) {
+                                <p>@PatchnoteToShow.Title</p>
+                                <p>@PatchnoteToShow.ReleaseDate</p>
+                                <p>@PatchnoteToShow.Description</p>
+                                <button type="button" class="nbt btn btn-danger" @onclick="Return">Return</button>
+                            }
+                        }
+                    }
+                </div>
+            }
+        </div>
+
+    </div>
+    
+}
