@@ -3,28 +3,40 @@
 @using Microsoft.EntityFrameworkCore
 @using SpaceVoyage.Data
 @inject IDbContextFactory<PatchnoteDataContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
 
 <PageTitle>News</PageTitle>
 
 @if(CreateShowForm) {
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
-        <input type="text" class="form-control" id="titleForm" @bind="@NewPatchnote.Title" required />
+    
+    <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
+        <DataAnnotationsValidator />
+        <div class="FAQtext">
         <div class="mb-3">
-            <div id="Error" class="form-text">@ErrorMessage</div>
+            <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
+            <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title"/>
+                <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
+                <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
         </div>
-    </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="descriptionForm" rows="10" @bind="@NewPatchnote.Description"/>
-    </div>
-
-    <div class="input-group">
-        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-    </div>
-
-    <button type="button" class="nbt btn btn-danger" @onclick="CreateNewPatchnote">Yes</button>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description"/>
+                <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
+        </div>
+        
+        <InputNumber type="number" class="form-control" id="neviemuz" @bind-Value="NewPatchnote.testovaciStlpec" />
+            <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
+        
+            <div class="mb-3">
+                <div id="Error" class="form-text">@ErrorMessage</div>
+            </div>
+            <button type="submit" class="nbt btn btn-danger">Create</button>
+            <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+        </div>
+    </EditForm>
+    
+    
 } else {
     <div class="container text-center">
         <div class="FAQtext">
@@ -62,27 +74,38 @@
                         {
                              @if (PatchnoteToUpdate != null && PatchnoteToUpdate.Id == patchnote.Id)
                                 {
+                                <EditForm Model="@PatchnoteToUpdate" OnValidSubmit="UpdatePatchnote">
+                                    <DataAnnotationsValidator />
                                     <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                        <input type="text" class="form-control" id="titleForm" @bind="@PatchnoteToUpdate.Title">
+                                        <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
+                                        <InputText type="text" class="form-control" id="titleForm" @bind-value="patchnote.Title" />
+                                        <ValidationMessage For="() => patchnote.Title" class="errorMessages"></ValidationMessage>
+                                        
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                        <textarea class="form-control" id="descriptionForm" rows="10" @bind="@PatchnoteToUpdate.Description"></textarea>
+                                        <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="patchnote.Description" />
+                                        <ValidationMessage For="() => patchnote.Description" class="errorMessages"></ValidationMessage>
                                     </div>
 
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <InputNumber type="number" class="form-control" id="neviemuz" @bind-Value="patchnote.testovaciStlpec" />
+                                    <ValidationMessage For="() => patchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
+                                    <div class="mb-3">
+                                        <div id="Error" class="form-text">@ErrorMessage</div>
                                     </div>
-
-                                    <button type="button" class="nbt btn btn-danger" @onclick="UpdatePatchnote">Yes</button>
+                                    <button type="submit" class="nbt btn btn-danger">Create</button>
+                                    <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+                                </EditForm>
                              }
                         } else if (!EditShowForm && ShowPatchnote){
                             if (PatchnoteToShow != null && PatchnoteToShow.Id == patchnote.Id) {
                                 <p>@PatchnoteToShow.Title</p>
                                 <p>@PatchnoteToShow.ReleaseDate</p>
                                 <p>@PatchnoteToShow.Description</p>
+                                @if (PatchnoteToShow.testovaciStlpec != null) {
+                                    <p>@PatchnoteToShow.testovaciStlpec</p>
+                                }
                                 <button type="button" class="nbt btn btn-danger" @onclick="Return">Return</button>
                             }
                         }

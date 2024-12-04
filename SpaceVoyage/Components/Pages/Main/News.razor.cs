@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using SpaceVoyage.Data;
 using System.Diagnostics;
 
@@ -11,8 +15,9 @@ namespace SpaceVoyage.Components.Pages.Main
         public bool ShowPatchnote { get; set; }
 
         private PatchnoteDataContext? context;
-
+        [SupplyParameterFromForm]
         public Patchnote? NewPatchnote { get; set; }
+        [SupplyParameterFromForm]
         public Patchnote? PatchnoteToUpdate { get; set; }
         public Patchnote? PatchnoteToShow { get; set; }
         public int selectedId { get; set; }
@@ -22,6 +27,7 @@ namespace SpaceVoyage.Components.Pages.Main
         {
             CreateShowForm = false;
             await ShowPatchnotes();
+            ErrorMessage = string.Empty;
         }
 
         //Create
@@ -35,13 +41,27 @@ namespace SpaceVoyage.Components.Pages.Main
         public async Task CreateNewPatchnote()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-
-            if (NewPatchnote != null)
+            if (context != null)
             {
-                context?.PatchNotes.Add(NewPatchnote);
-                context?.SaveChangesAsync();
-                
+                if (NewPatchnote != null)
+                {
+                    if (string.IsNullOrEmpty(NewPatchnote.Title) || string.IsNullOrEmpty(NewPatchnote.Description) || NewPatchnote.testovaciStlpec == null)
+                    {
+                        ErrorMessage = "All fields are required!";
+                        return;
+                    }
+                    var patchnote = context.PatchNotes.FirstOrDefault(x => x.Title == NewPatchnote.Title);
+                    if (patchnote != null)
+                    {
+                        ErrorMessage = "Patch with this title already exists!";
+                        return;
+                    }
+                    context?.PatchNotes.Add(NewPatchnote);
+                    context?.SaveChangesAsync();
+
+                }
             }
+            ErrorMessage = string.Empty;
             CreateShowForm = false;
             await ShowPatchnotes();
 
@@ -63,9 +83,12 @@ namespace SpaceVoyage.Components.Pages.Main
         {
             
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-            PatchnoteToUpdate = context.PatchNotes.FirstOrDefault(x => x.Id == patchnote.Id);
-            EditShowForm = true;
-            selectedId = patchnote.Id;
+            if ( context != null)
+            {
+                PatchnoteToUpdate = context.PatchNotes.FirstOrDefault(x => x.Id == patchnote.Id);
+                EditShowForm = true;
+                selectedId = patchnote.Id;
+            }
         }
 
         public async Task UpdatePatchnote()
@@ -75,17 +98,30 @@ namespace SpaceVoyage.Components.Pages.Main
             {
                 if (PatchnoteToUpdate != null)
                 {
+                    if (string.IsNullOrEmpty(PatchnoteToUpdate.Title) || string.IsNullOrEmpty(PatchnoteToUpdate.Description) || PatchnoteToUpdate.testovaciStlpec == null)
+                    {
+                        ErrorMessage = "All fields are required!";
+                        return;
+                    }
+                    var patchnote = context.PatchNotes.FirstOrDefault(x => x.Title == NewPatchnote.Title);
+                    if (patchnote != null)
+                    {
+                        ErrorMessage = "Patch with this title already exists!";
+                        return;
+                    }
                     context.PatchNotes.Update(PatchnoteToUpdate);
 
                 }
                 await context.SaveChangesAsync();
             }
+            ErrorMessage = string.Empty;
             EditShowForm = false;
         }
 
         //Delte
         public async Task RemovePatchnote(Patchnote patchnote)
         {
+            context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
                 if (patchnote != null)
@@ -101,14 +137,19 @@ namespace SpaceVoyage.Components.Pages.Main
         public async Task ShowSelectedPatchnote(Patchnote patchnote)
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-            PatchnoteToShow = context.PatchNotes.FirstOrDefault(x => x.Id == patchnote.Id);
-            ShowPatchnote = true;
-            selectedId = patchnote.Id;
+            if (context != null)
+            {
+                PatchnoteToShow = context.PatchNotes.FirstOrDefault(x => x.Id == patchnote.Id);
+                ShowPatchnote = true;
+                selectedId = patchnote.Id;
+            }
         }
 
         public async Task Return()
         {
             ShowPatchnote = false;
+            EditShowForm = false;
+            CreateShowForm = false;
             await ShowPatchnotes();
         }
     }

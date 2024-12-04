@@ -121,6 +121,10 @@ body {
     color: black;
 }
 
+.errorMessages {
+    text-align: left;
+}
+
 @media (min-width: 480px) {
     .gridContainer {
         padding: 5px;

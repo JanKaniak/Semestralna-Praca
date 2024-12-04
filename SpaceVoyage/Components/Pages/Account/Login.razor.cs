@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using SpaceVoyage.Data;
-using SpaceVoyage.Models.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -13,7 +12,7 @@ namespace SpaceVoyage.Components.Pages.Account
         [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
         [SupplyParameterFromForm]
-        public LoginViewModel ViewModel { get; set; } = new();
+        public LoginInput UserLoginInput { get; set; } = new();
         public string? ErrorMessage { get; set; }
         
         private UserDataContext? context;
@@ -23,22 +22,22 @@ namespace SpaceVoyage.Components.Pages.Account
         private async Task Authentification()
         {
             context ??= await UserDataContextFactory.CreateDbContextAsync();
-            var userAccount = context.Users.FirstOrDefault(x => x.UserName == ViewModel.UserName);
-            /*if (string.IsNullOrWhiteSpace(ViewModel.UserName) || string.IsNullOrWhiteSpace(ViewModel.Password))
+            var userAccount = context.Users.FirstOrDefault(x => x.UserName == UserLoginInput.UserName);
+            if (string.IsNullOrEmpty(UserLoginInput.UserName) || string.IsNullOrEmpty(UserLoginInput.Password))
             {
-                ErrorMessage = "Invalid user name or password! (ㆆ _ ㆆ)";
+                ErrorMessage = "Username and password field must be filled!";
                 return;
-            }*/
-  
-            if (userAccount == null || userAccount.UserPassword != ViewModel.Password)
+            }
+
+            if (userAccount == null || userAccount.UserPassword != UserLoginInput.Password)
             {
-                ErrorMessage = $"Invalid password, correct password for user {ViewModel.UserName} is: {userAccount.UserPassword}";
+                ErrorMessage = "Invalid username or password";
                 return;
             }
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, ViewModel.UserName),
+                new Claim(ClaimTypes.Name, UserLoginInput.UserName),
                 new Claim(ClaimTypes.Role, userAccount.UserRole)
             };
 
