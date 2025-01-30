@@ -4,28 +4,28 @@
 @inject NavigationManager NavigationManager
 @inject IDbContextFactory<UserDataContext> UserDataContextFactory;
 
-<h1>UserName</h1>
-
 <EditForm Model="@UserLoginInput" OnValidSubmit="Authentification" FormName="LoginForm">
     <DataAnnotationsValidator/>
-        <div class="loginForm">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">User name</label>
-            <InputText class="form-control" @bind-value="UserLoginInput.UserName" placeholder="Username" />
-            <ValidationMessage For="() => UserLoginInput.UserName"></ValidationMessage>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <InputText class="form-control" @bind-value="UserLoginInput.Password" placeholder="Password" type="password" />
-            <ValidationMessage For="() => UserLoginInput.Password"></ValidationMessage>
-            <div id="emailHelp" class="form-text">Your account details including your user name and password was unfortunately sold to Meta</div>
-        </div>
-        <div class="mb-3">
-            <div id="Error" class="form-text">@ErrorMessage</div>
-        </div>
-        <div class="d-grid gap-2 loginButton">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
+        <div class="gridContainerLoginOut">
+            <div class="loginForm">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">User name</label>
+                <InputText class="form-control" @bind-value="UserLoginInput.UserName" placeholder="Username" />
+                <ValidationMessage For="() => UserLoginInput.UserName"></ValidationMessage>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <InputText class="form-control" @bind-value="UserLoginInput.Password" placeholder="Password" type="password" />
+                <ValidationMessage For="() => UserLoginInput.Password"></ValidationMessage>
+                <div id="emailHelp" class="form-text">Your account details including your user name and password was unfortunately sold to Meta</div>
+            </div>
+            <div class="mb-3">
+                <div id="Error" class="form-text">@ErrorMessage</div>
+            </div>
+            <div class="d-grid gap-2 loginButton">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </div>
         </div>
 </EditForm>
 
