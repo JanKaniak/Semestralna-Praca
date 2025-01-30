@@ -58,9 +58,9 @@
                             @if (!EditShowForm && !ShowPatchnote)
                             {
                                     <div class="showPatchnotesList">
-                                    <a class="list-group-item list-group-item-action patchnote" @onclick="() => ShowSelectedPatchnote(patchnote)">
-                                        <span>@patchnote.Title</span>
-                                    </a>
+                                <a class="list-group-item list-group-item-action patchnote" href="/news/patchnote-@patchnote.Id">
+                                            <span>@patchnote.Title</span>
+                                        </a>
                                         <AuthorizeView Roles="Administrator">
                                             <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
                                                 <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
@@ -68,8 +68,6 @@
                                             </div>
                                         </AuthorizeView>
                                      </div>
-                            
-
                             }
                         else if (EditShowForm && !ShowPatchnote)
                         {
@@ -101,17 +99,23 @@
                              }
                         } else if (!EditShowForm && ShowPatchnote){
                             if (PatchnoteToShow != null && PatchnoteToShow.Id == patchnote.Id) {
-                                <pre>@PatchnoteToShow.Title</pre>
-                                <pre>@PatchnoteToShow.ReleaseDate</pre>
-                                <div align="left">
-                                    <pre>@PatchnoteToShow.Description</pre>
-                                </div>
-                                @if (PatchnoteToShow.testovaciStlpec != null) {
-                                    <pre>@PatchnoteToShow.testovaciStlpec</pre>
-                                }
-                                <button type="button" class="nbt btn btn-danger" @onclick="Return">Return</button>
                             }
+                                
                         }
+                    }
+
+                    @if (!EditShowForm && !ShowPatchnote) {
+                        <div class="container">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     }
                 </div>
             }

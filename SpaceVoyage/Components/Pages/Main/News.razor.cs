@@ -15,6 +15,7 @@ namespace SpaceVoyage.Components.Pages.Main
         public bool ShowPatchnote { get; set; }
 
         private PatchnoteDataContext? context;
+
         [SupplyParameterFromForm]
         public Patchnote? NewPatchnote { get; set; }
         [SupplyParameterFromForm]

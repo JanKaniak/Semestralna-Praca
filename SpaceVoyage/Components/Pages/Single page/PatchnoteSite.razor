@@ -1,0 +1,27 @@
+﻿@page "/news/patchnote-{Id}"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<PatchnoteDataContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
+
+
+@if (PatchnoteToShow != null) {
+    <PageTitle>Patchnote-@PatchnoteToShow.Title</PageTitle>
+    <div class="container text-center">
+        
+        <div class="list-group">
+            <pre>@PatchnoteToShow.Title</pre>
+            <pre>@PatchnoteToShow.ReleaseDate</pre>
+            <div align="left">
+                <pre>@PatchnoteToShow.Description</pre>
+            </div>
+            @if (PatchnoteToShow.testovaciStlpec != null)
+            {
+                <pre>@PatchnoteToShow.testovaciStlpec</pre>
+            }
+            
+        </div>
+        <button type="button" class="nbt btn btn-danger" @onclick=Return>Return</button>
+    </div>
+}
