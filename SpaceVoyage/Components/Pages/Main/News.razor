@@ -8,33 +8,34 @@
 <PageTitle>News</PageTitle>
 
 @if(CreateShowForm) {
-    
-    <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
-        <DataAnnotationsValidator />
-        <div class="FAQtext">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
-            <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title"/>
-                <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
-                <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
-        </div>
+    <div class="container">
+        <div class="list-group">
+            <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
+                <DataAnnotationsValidator />
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
+                    <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title"/>
+                        <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
+                        <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
+                </div>
 
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description"/>
-                <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
-        </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description"/>
+                        <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
+                </div>
         
-        <InputNumber type="number" class="form-control" id="neviemuz" @bind-Value="NewPatchnote.testovaciStlpec" />
-            <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
+                <InputNumber type="number" class="form-control" id="neviemuz" @bind-Value="NewPatchnote.testovaciStlpec" />
+                    <ValidationMessage For="() => NewPatchnote.testovaciStlpec" class="errorMessages"></ValidationMessage>
         
-            <div class="mb-3">
-                <div id="Error" class="form-text">@ErrorMessage</div>
-            </div>
-            <button type="submit" class="nbt btn btn-danger">Create</button>
-            <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+                    <div class="mb-3">
+                        <div id="Error" class="form-text">@ErrorMessage</div>
+                    </div>
+                    <button type="submit" class="nbt btn btn-danger">Create</button>
+                    <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+            </EditForm>
         </div>
-    </EditForm>
+    </div>
     
     
 } else {
@@ -43,33 +44,33 @@
             @if (PatchnotesList != null && PatchnotesList.Count > 0)
             {
                 <div class="list-group">
-                    @if (!EditShowForm && !ShowPatchnote)
-                    {
-                        <p>Patch notes</p>
-                        <div class="showPatchnotesList">
-                            <AuthorizeView Roles="Administrator">
-                                <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
-                            </AuthorizeView>
-                        </div>
-                    }
-                    @foreach (var patchnote in PatchnotesList)
-                    {
                         @if (!EditShowForm && !ShowPatchnote)
                         {
-                            <div class="showPatchnotesList">
-                            <a class="list-group-item list-group-item-action patchnote" @onclick="() => ShowSelectedPatchnote(patchnote)">
-                                <span>@patchnote.Title</span>
-                            </a>
-                                <AuthorizeView Roles="Administrator">
-                                    <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                        <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
-                                        <button class="btn btn-danger btn-sm" @onclick="() => RemovePatchnote(patchnote)">Remove</button>
+                                    <p>Patch notes</p>
+                                    <div class="showPatchnotesList">
+                                        <AuthorizeView Roles="Administrator">
+                                            <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
+                                        </AuthorizeView>
                                     </div>
-                                </AuthorizeView>
-                             </div>
+                        }
+                        @foreach (var patchnote in PatchnotesList)
+                        {
+                            @if (!EditShowForm && !ShowPatchnote)
+                            {
+                                    <div class="showPatchnotesList">
+                                    <a class="list-group-item list-group-item-action patchnote" @onclick="() => ShowSelectedPatchnote(patchnote)">
+                                        <span>@patchnote.Title</span>
+                                    </a>
+                                        <AuthorizeView Roles="Administrator">
+                                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => RemovePatchnote(patchnote)">Remove</button>
+                                            </div>
+                                        </AuthorizeView>
+                                     </div>
                             
 
-                        }
+                            }
                         else if (EditShowForm && !ShowPatchnote)
                         {
                              @if (PatchnoteToUpdate != null && PatchnoteToUpdate.Id == patchnote.Id)
@@ -100,11 +101,13 @@
                              }
                         } else if (!EditShowForm && ShowPatchnote){
                             if (PatchnoteToShow != null && PatchnoteToShow.Id == patchnote.Id) {
-                                <p>@PatchnoteToShow.Title</p>
-                                <p>@PatchnoteToShow.ReleaseDate</p>
-                                <p>@PatchnoteToShow.Description</p>
+                                <pre>@PatchnoteToShow.Title</pre>
+                                <pre>@PatchnoteToShow.ReleaseDate</pre>
+                                <div align="left">
+                                    <pre>@PatchnoteToShow.Description</pre>
+                                </div>
                                 @if (PatchnoteToShow.testovaciStlpec != null) {
-                                    <p>@PatchnoteToShow.testovaciStlpec</p>
+                                    <pre>@PatchnoteToShow.testovaciStlpec</pre>
                                 }
                                 <button type="button" class="nbt btn btn-danger" @onclick="Return">Return</button>
                             }
@@ -113,7 +116,5 @@
                 </div>
             }
         </div>
-
     </div>
-    
 }
