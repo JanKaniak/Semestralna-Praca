@@ -32,7 +32,7 @@ namespace SpaceVoyage.Components.Pages.Main
                 PatchnotesList = await context.PatchNotes.ToListAsync();
                 PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
                 numOfPatchnotes = PatchnotesList.Count;
-                numOfPages = (numOfPatchnotes / 10);
+                numOfPages = (int)Math.Ceiling(numOfPatchnotes / 10.0);
 
             }
         }

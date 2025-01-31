@@ -4,6 +4,7 @@
 @using SpaceVoyage.Data
 @inject IDbContextFactory<PatchnoteDataContext> PatchnoteDataContextFactory;
 @inject NavigationManager NavigationManager
+@inject ILogger<News> Logger
 
 <PageTitle>News</PageTitle>
 
@@ -28,7 +29,9 @@
                 <InputFile OnChange="LoadFile" />
 
                 <div class="mb-3">
-                    <div id="Error" class="form-text">@ErrorMessage</div>
+                    <div id="Error" class="form-text">
+                        <p style="color:red">@ErrorMessage</p>
+                    </div>
                 </div>
                 <button type="submit" class="nbt btn btn-danger">Create</button>
                 <button type="button" class="nbt btn btn-danger" onclick="Return">Back</button>
@@ -64,15 +67,12 @@ else
                             {
                                 <div class="showPatchnotesList">
                                     <a class="list-group-item list-group-item-action patchnote" href="/news/patchnote-@patchnote.Id" style="max-width: 50%;overflow: hidden;">
-                                            <span>
+                                        <span>
                                             <div align="left">
-                                                         @patchnote.Title
-                                                </div>
-                                            </span>
-
-
-                                        
-                                        </a>
+                                                @patchnote.Title
+                                            </div>
+                                        </span>
+                                    </a>
                                     <AuthorizeView Roles="Administrator">
                                         <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
                                             <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
@@ -100,6 +100,18 @@ else
                                             <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="patchnote.Description" />
                                             <ValidationMessage For="() => patchnote.Description" class="errorMessages"></ValidationMessage>
                                         </div>
+
+                                        @code {
+                                            bool imageUploaded = false;
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(patchnote.FilePath))
+                                        {
+                                            <img src="@patchnote.FilePath" style="max-width: 50%; max-height: 50%" />
+                                            <button type="button" class="nbt btn btn-danger" @onclick="() => RemoveImage(patchnote)">Remove</button>
+                                            imageUploaded = true;
+                                        }
+                                        <InputFile OnChange="LoadFile" disabled="@imageUploaded" />
+
                                         <div class="mb-3">
                                             <div id="Error" class="form-text">@ErrorMessage</div>
                                         </div>

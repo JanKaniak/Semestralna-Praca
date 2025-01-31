@@ -9,7 +9,7 @@
 @if (PatchnoteToShow != null) {
     <PageTitle>Patchnote-@PatchnoteToShow.Title</PageTitle>
     <div class="container text-center">
-        
+
         <div class="list-group">
             <pre>@PatchnoteToShow.Title</pre>
             <pre>@PatchnoteToShow.ReleaseDate</pre>
@@ -18,7 +18,8 @@
             </div>
 
             @if (!string.IsNullOrWhiteSpace(PatchnoteToShow.FilePath)) {
-                <img src="@PatchnoteToShow.FilePath" />
+                string filePath = $"uploadPictures/{PatchnoteToShow.FilePath}";
+                <img src=@filePath />
             }
             
         </div>

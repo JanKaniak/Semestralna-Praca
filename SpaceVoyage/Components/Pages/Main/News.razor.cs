@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using SpaceVoyage.Data;
 using System.Diagnostics;
+using System.IO;
 
 namespace SpaceVoyage.Components.Pages.Main
 {
@@ -30,6 +32,7 @@ namespace SpaceVoyage.Components.Pages.Main
         public int currentPageNumber { get; set; }
         
         public int numOfPages { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             CreateShowForm = false;
@@ -86,7 +89,7 @@ namespace SpaceVoyage.Components.Pages.Main
                 PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
 
                 numOfPatchnotes = PatchnotesList.Count;
-                numOfPages = (numOfPatchnotes / 10);
+                numOfPages = (int)Math.Ceiling(numOfPatchnotes / 10.0);
             }
         }
 
@@ -168,26 +171,60 @@ namespace SpaceVoyage.Components.Pages.Main
 
         private async Task LoadFile(InputFileChangeEventArgs e)
         {
-            Console.WriteLine("gg");
             var file = e.File;
             var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
 
             var extension = Path.GetExtension(file.Name).ToLower();
             if (!allowedExtensions.Contains(extension))
             {
-                Console.WriteLine("Unsupported format of file!");
+                ErrorMessage = "Unsupported format of file!";
                 return;
             }
 
             string uploadPath = Path.Combine("wwwroot", "uploadPictures");
-            string fileExtension = Path.GetExtension(e.File.Name);
-            string newFileName = $"{Guid.NewGuid()}{fileExtension}";
-            string filePath = Path.Combine(uploadPath, file.Name);
+            string fileName = Path.GetExtension(e.File.Name);
+            string newFileName = $"{Guid.NewGuid()}{fileName}";
+            string filePath = Path.Combine(uploadPath, newFileName);
 
             await using var fileStream = new FileStream(filePath, FileMode.Create);
             await file.OpenReadStream().CopyToAsync(fileStream);
 
-            NewPatchnote.FilePath = $"/uploadPictures/{file.Name}";
+            if (NewPatchnote != null)
+            {
+                NewPatchnote.FilePath = $"{newFileName}";
+            }
+            else if (PatchnoteToUpdate != null) { 
+                PatchnoteToUpdate.FilePath = $"{newFileName}";
+            }
+                
+        }
+
+        public async Task RemoveImage(Patchnote patchnote)
+        {
+            if (!string.IsNullOrWhiteSpace(patchnote.FilePath))
+            {
+                var filePath = Path.Combine("wwwroot", "uploadPictures", patchnote.FilePath);
+                Logger.LogInformation(filePath);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                patchnote.FilePath = string.Empty;
+                context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
+                var patchnoteToChange = context.PatchNotes.FirstOrDefault(x => x.Id == patchnote.Id);
+                if (context != null)
+                {
+                    if (patchnoteToChange != null)
+                    {
+                        patchnoteToChange.FilePath = patchnote.FilePath;
+                        patchnoteToChange.FilePath = null;
+                        await context.SaveChangesAsync();
+                    }
+                }
+                imageUploaded = false;
+                await InvokeAsync(StateHasChanged);
+            }
         }
     }
 }
