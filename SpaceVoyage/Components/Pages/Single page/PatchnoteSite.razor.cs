@@ -21,6 +21,8 @@ namespace SpaceVoyage.Components.Pages.Single_page
 
         public string? FilePath { get; set; }
 
+        public bool Editing {  get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
@@ -33,7 +35,6 @@ namespace SpaceVoyage.Components.Pages.Single_page
                     FilePath = $"uploadPictures/{PatchnoteToShow.FilePath}";
                 }
             }
-
         }
 
         public async void Return()

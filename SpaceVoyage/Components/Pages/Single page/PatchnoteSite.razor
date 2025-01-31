@@ -6,12 +6,17 @@
 @inject NavigationManager NavigationManager
 
 
-@if (PatchnoteToShow != null) {
+
+
+@if (PatchnoteToShow != null)
+{
     <PageTitle>Patchnote-@PatchnoteToShow.Title</PageTitle>
     <div class="text-post">
         <div class="text-post-header">
             <pre><strong>@PatchnoteToShow.Title</strong></pre>
-            <pre>@PatchnoteToShow.ReleaseDate</pre>
+            <div align="right">
+                <pre>@PatchnoteToShow.ReleaseDate</pre>
+            </div>
         </div>
 
         <div class="text-post-text">
@@ -20,14 +25,16 @@
             </div>
         </div>
 
-            @if (!string.IsNullOrWhiteSpace(FilePath)) {
-                <div class="text-post-image">
-                    <img src=@FilePath />
-                </div>
-            }
+        @if (!string.IsNullOrWhiteSpace(FilePath))
+        {
+            <div class="text-post-image">
+                <img src=@FilePath style="height: 15rem; width: auto;" />
+            </div>
+        }
 
-            
 
-        
+
+
     </div>
 }
+
