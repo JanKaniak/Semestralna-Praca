@@ -25,17 +25,13 @@
                     <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
                 </div>
 
-                <div id="dropZone" style="border: 2px dashed #ccc; padding: 20px; text-align: center;">
-                    Presuňte sem obrázky alebo kliknite pre výber súborov.
-                    <input type="file" id="fileInput" style="display: none;" multiple>
-                </div>
-                <button type="button" onclick="uploadImages()">Nahrať obrázky</button>
+                <InputFile OnChange="LoadFile" />
 
                 <div class="mb-3">
                     <div id="Error" class="form-text">@ErrorMessage</div>
                 </div>
                 <button type="submit" class="nbt btn btn-danger">Create</button>
-                <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+                <button type="button" class="nbt btn btn-danger" onclick="Return">Back</button>
             </EditForm>
         </div>
     </div>

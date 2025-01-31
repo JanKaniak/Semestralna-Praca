@@ -30,6 +30,7 @@ namespace SpaceVoyage.Components.Pages.Main
             if (context != null)
             {
                 PatchnotesList = await context.PatchNotes.ToListAsync();
+                PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
                 numOfPatchnotes = PatchnotesList.Count;
                 numOfPages = (numOfPatchnotes / 10);
 

@@ -83,6 +83,7 @@ namespace SpaceVoyage.Components.Pages.Main
             if (context != null)
             {
                 PatchnotesList = await context.PatchNotes.ToListAsync();
+                PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
 
                 numOfPatchnotes = PatchnotesList.Count;
                 numOfPages = (numOfPatchnotes / 10);
@@ -163,6 +164,30 @@ namespace SpaceVoyage.Components.Pages.Main
             EditShowForm = false;
             CreateShowForm = false;
             await ShowPatchnotes();
+        }
+
+        private async Task LoadFile(InputFileChangeEventArgs e)
+        {
+            Console.WriteLine("gg");
+            var file = e.File;
+            var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
+
+            var extension = Path.GetExtension(file.Name).ToLower();
+            if (!allowedExtensions.Contains(extension))
+            {
+                Console.WriteLine("Unsupported format of file!");
+                return;
+            }
+
+            string uploadPath = Path.Combine("wwwroot", "uploadPictures");
+            string fileExtension = Path.GetExtension(e.File.Name);
+            string newFileName = $"{Guid.NewGuid()}{fileExtension}";
+            string filePath = Path.Combine(uploadPath, file.Name);
+
+            await using var fileStream = new FileStream(filePath, FileMode.Create);
+            await file.OpenReadStream().CopyToAsync(fileStream);
+
+            NewPatchnote.FilePath = $"/uploadPictures/{file.Name}";
         }
     }
 }

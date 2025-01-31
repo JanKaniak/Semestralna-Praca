@@ -49,7 +49,7 @@
                             <li class="page-item"><a class="page-link" href="/news-@pageNumber">@(pageNumber + 1)</a></li>
                         }
 
-                        @if (pageNumberInt + 1 <= numOfPages)
+                        @if (pageNumberInt + 1 < numOfPages)
                         {
                             <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt+1)">Next</a></li>
                         } else {

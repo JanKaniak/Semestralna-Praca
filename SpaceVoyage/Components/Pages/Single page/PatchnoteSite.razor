@@ -16,6 +16,10 @@
             <div align="left">
                 <pre>@PatchnoteToShow.Description</pre>
             </div>
+
+            @if (!string.IsNullOrWhiteSpace(PatchnoteToShow.FilePath)) {
+                <img src="@PatchnoteToShow.FilePath" />
+            }
             
         </div>
         <button type="button" class="nbt btn btn-danger" @onclick=Return>Return</button>
