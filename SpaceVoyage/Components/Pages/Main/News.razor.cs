@@ -24,11 +24,18 @@ namespace SpaceVoyage.Components.Pages.Main
         public int selectedId { get; set; }
         public List<Patchnote>? PatchnotesList { get; set; }
         public string? ErrorMessage { get; set; }
+
+        public int numOfPatchnotes { get; set; }
+
+        public int currentPageNumber { get; set; }
+        
+        public int numOfPages { get; set; }
         protected override async Task OnInitializedAsync()
         {
             CreateShowForm = false;
             await ShowPatchnotes();
             ErrorMessage = string.Empty;
+            currentPageNumber = 0;
         }
 
         //Create
@@ -46,7 +53,7 @@ namespace SpaceVoyage.Components.Pages.Main
             {
                 if (NewPatchnote != null)
                 {
-                    if (string.IsNullOrEmpty(NewPatchnote.Title) || string.IsNullOrEmpty(NewPatchnote.Description) || NewPatchnote.testovaciStlpec == null)
+                    if (string.IsNullOrEmpty(NewPatchnote.Title) || string.IsNullOrEmpty(NewPatchnote.Description))
                     {
                         ErrorMessage = "All fields are required!";
                         return;
@@ -76,6 +83,9 @@ namespace SpaceVoyage.Components.Pages.Main
             if (context != null)
             {
                 PatchnotesList = await context.PatchNotes.ToListAsync();
+
+                numOfPatchnotes = PatchnotesList.Count;
+                numOfPages = (numOfPatchnotes / 10);
             }
         }
 
@@ -99,12 +109,12 @@ namespace SpaceVoyage.Components.Pages.Main
             {
                 if (PatchnoteToUpdate != null)
                 {
-                    if (string.IsNullOrEmpty(PatchnoteToUpdate.Title) || string.IsNullOrEmpty(PatchnoteToUpdate.Description) || PatchnoteToUpdate.testovaciStlpec == null)
+                    if (string.IsNullOrEmpty(PatchnoteToUpdate.Title) || string.IsNullOrEmpty(PatchnoteToUpdate.Description))
                     {
                         ErrorMessage = "All fields are required!";
                         return;
                     }
-                    var patchnote = context.PatchNotes.FirstOrDefault(x => x.Title == NewPatchnote.Title);
+                    var patchnote = context.PatchNotes.FirstOrDefault(x => x.Title == PatchnoteToUpdate.Title);
                     if (patchnote != null)
                     {
                         ErrorMessage = "Patch with this title already exists!";
@@ -148,6 +158,7 @@ namespace SpaceVoyage.Components.Pages.Main
 
         public async Task Return()
         {
+            ErrorMessage = string.Empty;
             ShowPatchnote = false;
             EditShowForm = false;
             CreateShowForm = false;

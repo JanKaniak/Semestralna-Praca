@@ -11,8 +11,6 @@ namespace SpaceVoyage.Data
         public string? Description { get; set; }
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
-        
-        [Range(0,200, ErrorMessage = "Value must be between 0 and 200")]
-        public int? testovaciStlpec { get; set; }
+        public string? FilePath { get; set; }
     }
 }

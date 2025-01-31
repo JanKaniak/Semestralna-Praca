@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceVoyage.Data;
 
@@ -10,9 +11,11 @@ using SpaceVoyage.Data;
 namespace SpaceVoyage.Migrations
 {
     [DbContext(typeof(PatchnoteDataContext))]
-    partial class PatchnoteDataContextModelSnapshot : ModelSnapshot
+    [Migration("20250131021106_TestovaciStlpecRemovedFilePathhAdded")]
+    partial class TestovaciStlpecRemovedFilePathhAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");

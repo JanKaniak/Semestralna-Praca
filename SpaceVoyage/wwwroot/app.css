@@ -233,7 +233,7 @@ body {
     }
 
     .gridContainerFAQnNews {
-        margin: 5px;
+        margin: 15px;
         display: grid;
         grid-template-columns: repeat(5,1fr);
         grid-template-rows: auto;
@@ -346,7 +346,7 @@ body {
         grid-template-columns: repeat(5,1fr);
         grid-template-rows: auto;
         grid-template-areas:
-            ". fn fn fn . "
+            "fn fn fn fn fn "
             ". in in in . ";
         gap: 5px;
         /*margin: auto;*/
@@ -465,12 +465,12 @@ body {
     }
 
     .showPatchnotesList {
-        margin: 5px;
+        margin: 0.3125rem;
         display: grid;
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(2,1fr);
         grid-template-rows: 20% auto auto;
         grid-template-areas:
-            "pn pn er";
+            "pn er";
     }
 
     /*.gridContainerLoginOut {
