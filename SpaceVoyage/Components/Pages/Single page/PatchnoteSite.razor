@@ -8,21 +8,26 @@
 
 @if (PatchnoteToShow != null) {
     <PageTitle>Patchnote-@PatchnoteToShow.Title</PageTitle>
-    <div class="container text-center">
-
-        <div class="list-group">
-            <pre>@PatchnoteToShow.Title</pre>
+    <div class="text-post">
+        <div class="text-post-header">
+            <pre><strong>@PatchnoteToShow.Title</strong></pre>
             <pre>@PatchnoteToShow.ReleaseDate</pre>
+        </div>
+
+        <div class="text-post-text">
             <div align="left">
                 <pre>@PatchnoteToShow.Description</pre>
             </div>
-
-            @if (!string.IsNullOrWhiteSpace(PatchnoteToShow.FilePath)) {
-                string filePath = $"uploadPictures/{PatchnoteToShow.FilePath}";
-                <img src=@filePath />
-            }
-            
         </div>
-        <button type="button" class="nbt btn btn-danger" @onclick=Return>Return</button>
+
+            @if (!string.IsNullOrWhiteSpace(FilePath)) {
+                <div class="text-post-image">
+                    <img src=@FilePath />
+                </div>
+            }
+
+            
+
+        
     </div>
 }

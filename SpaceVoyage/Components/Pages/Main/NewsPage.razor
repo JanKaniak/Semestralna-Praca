@@ -7,43 +7,21 @@
 
 
 
-<div class="container text-center">
-    <div class="FAQtext">
+<div class="news">
         <div class="list-group">
-            @if (PatchnotesList != null)
-            {
-                int numOfCycles = 0;
-
-                for (int i = pageNumberInt * 10; i < numOfPatchnotes; i++)
-                {
-                    if (numOfCycles < 10)
-                    {
-                        var patchnote = PatchnotesList.ElementAt(i);
-                        <div class="showPatchnotesList">
-                            <a class="list-group-item list-group-item-action patchnote" href="/news/patchnote-@patchnote.Id">
-                                <span>@patchnote.Title</span>
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    numOfCycles++;
-                }
-            }
-
-
             <div class="container">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        @if (pageNumberInt > 1) {
+                        @if (pageNumberInt > 1)
+                        {
                             <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt-1)">Previous</a></li>
-                        } else {
+                        }
+                        else
+                        {
                             <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
                         }
                         <li class="page-item"><a class="page-link" href="/news">1</a></li>
-                        @for (int i = 0; i < numOfPages-1; i++)
+                        @for (int i = 0; i < numOfPages - 1; i++)
                         {
                             int pageNumber = i + 1;
                             <li class="page-item"><a class="page-link" href="/news-@pageNumber">@(pageNumber + 1)</a></li>
@@ -52,7 +30,9 @@
                         @if (pageNumberInt + 1 < numOfPages)
                         {
                             <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt+1)">Next</a></li>
-                        } else {
+                        }
+                        else
+                        {
                             @if (pageNumberInt > 0)
                             {
                                 <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt)">Previous</a></li>
@@ -65,6 +45,42 @@
                     </ul>
                 </nav>
             </div>
+
+            @if (PatchnotesList != null)
+            {
+                int numOfCycles = 0;
+
+                for (int i = pageNumberInt * 10; i < numOfPatchnotes; i++)
+                {
+                    var patchnote = PatchnotesList.ElementAt(i);
+                    if (numOfCycles < 10)
+                    {
+                        <div class="patchnote">
+                            <div align="left">
+                            <a href="/news/patchnote-@patchnote.Id" style="overflow: hidden; display: inline-block; max-width: 35rem; white-space: nowrap; text-overflow: ellipsis; word-break: break-all;">
+                                    @patchnote.Title
+                                </a>
+                            </div>
+                            <div align="right">
+                                @patchnote.ReleaseDate
+                            </div>
+                        </div>
+                        <AuthorizeView Roles="Administrator">
+                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                <button class="btn btn-danger btn-sm" >Edit</button>
+                                <button class="btn btn-danger btn-sm">Remove</button>
+                            </div>
+                        </AuthorizeView>
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    numOfCycles++;
+                }
+            }
+
+
+            
         </div>
     </div>
-</div>

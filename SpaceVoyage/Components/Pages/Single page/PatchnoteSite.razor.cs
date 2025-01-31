@@ -19,6 +19,8 @@ namespace SpaceVoyage.Components.Pages.Single_page
         
         public Patchnote? PatchnoteToShow { get; set; }
 
+        public string? FilePath { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
@@ -26,6 +28,10 @@ namespace SpaceVoyage.Components.Pages.Single_page
             {
                 PatchnoteToShow = context.PatchNotes.FirstOrDefault(x => x.Id == Int32.Parse(Id));
                 PatchnotesList = await context.PatchNotes.ToListAsync();
+                if (PatchnoteToShow != null)
+                {
+                    FilePath = $"uploadPictures/{PatchnoteToShow.FilePath}";
+                }
             }
 
         }
@@ -36,7 +42,7 @@ namespace SpaceVoyage.Components.Pages.Single_page
             if (context != null && PatchnotesList != null && PatchnoteToShow != null)
             {
                 int position = PatchnotesList.IndexOf(PatchnoteToShow);
-                int numOfPages = PatchnotesList.Count / 10;
+                int numOfPages = (int)Math.Ceiling(PatchnotesList.Count / 10.0);
                 if (position <= 10)
                 {
                     NavigationManager.NavigateTo("/news", true);
@@ -51,7 +57,6 @@ namespace SpaceVoyage.Components.Pages.Single_page
                     border += 10;
                 }
             }
-            NavigationManager.NavigateTo("/news", true);
         }
 
 

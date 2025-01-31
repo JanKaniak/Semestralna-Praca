@@ -90,12 +90,21 @@ body {
     background-color: wheat;
 }
 
-.gridContainerFAQnNews, .list-group, .gridContainerFAQnNews .FAQtext {
+.gridContainerFAQnNews, .gridContainerFAQnNews .FAQtext {
     grid-area: fn;
     background-color: wheat;
     color: black;
-    padding: 5px;
+    padding: 0.3125rem;
 }
+
+.list-group {
+    grid-area: fn;
+    background-color: lightblue;
+    color: black;
+    padding: 1rem;
+    margin: auto;
+}
+
 
 .gridContainerFAQnNews .news-button-grid {
     grid-area: nbt;
@@ -105,6 +114,16 @@ body {
 
 .patchnote {
     grid-area: pn;
+    width: 100%;
+    height: 5rem;
+    background-color: lightgrey;
+    border-bottom: 0.5rem solid #eee;
+    border-bottom: 1px solid black;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .adminButtonsEditRemove {
@@ -132,7 +151,49 @@ body {
     border-radius: 15px;
 }
 
+.text-post {
+    border: 1px solid black;
+    background-color: wheat;
+    padding-left: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.text-post-header {
+    background-color: lightgrey;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    width: 95%;
+    /*margin: auto;*/
+}
+
+.text-post-text {
+    background-color: lightgrey;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    width: 95%;
+    margin-top: 0.7rem;
+}
+
+.text-post-image {
+    background-color: lightgrey;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    width: 95%;
+    margin-top: 0.7rem;
+}
+
 @media (min-width: 480px) {
+
+    .news, .text-post{
+        width: 100%;
+    }
     .gridContainer {
         padding: 5px;
         margin: 5px;
@@ -268,6 +329,13 @@ body {
 }
 
 @media (min-width: 768px) {
+
+    .news, .text-post {
+        width: 97%;
+        margin: auto;
+    }
+
+
     .gridContainer {
         padding: 5px;
         margin: 5px;
@@ -354,6 +422,11 @@ body {
 }
 
 @media (min-width: 1080px) {
+
+    .news, .text-post {
+        width: 70%;
+        margin: auto;
+    }
 
     .gridContainer {
         padding: 5px;
