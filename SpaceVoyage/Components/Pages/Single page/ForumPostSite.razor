@@ -1,0 +1,63 @@
+﻿@page "/forum/forumpost-{Id}"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inject ILogger<PatchnoteSite> Logger
+
+
+
+
+@if (PostToShow != null)
+{
+    <PageTitle>Patchnote-@PostToShow.Title</PageTitle>
+    <div class="text-post">
+        <div class="text-post-header">
+            <pre><strong>@PostToShow.Title</strong></pre>
+            <div align="right">
+                <pre>@PostToShow.ReleaseDate</pre>
+            </div>
+        </div>
+
+        <div class="text-post-text">
+            <div align="left">
+                <pre>@PostToShow.Description</pre>
+            </div>
+        </div>
+
+        <div class="comment">
+            <EditForm Model="@NewComment" OnValidSubmit="CreateNewComment">
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewComment.Text" />
+                    <ValidationMessage For="() => NewComment.Text" class="errorMessages"></ValidationMessage>
+                </div>
+
+                <div class="mb-3">
+                    <div id="Error" class="form-text">
+                        <p style="color:red">@ErrorMessage</p>
+                    </div>
+                </div>
+                <button type="submit" class="nbt btn btn-danger">Post</button>
+            </EditForm>
+        </div>
+
+        <div class="comments">
+            <div align="left">
+                <pre>ohoihoi
+                    fuzfguzfgluzfglzugfulzguzlgluzgl
+                    uzgluzgluzgluz
+
+                </pre>
+
+            </div>
+        </div>
+
+
+    </div>
+}
+

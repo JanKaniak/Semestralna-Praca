@@ -14,9 +14,9 @@ namespace SpaceVoyage.Components.Pages.Main
         [Parameter]
         public string pageNumber { get; set; }
 
-        public PatchnoteDataContext? context;
+        public DatabaseContext? context;
 
-        public List<Patchnote>? PatchnotesList { get; set; }
+        public List<Post>? PatchnotesList { get; set; }
         public int numOfPatchnotes { get; set; }
         public int numOfPages { get; set; }
         public int pageNumberInt { get; set; }
@@ -29,7 +29,7 @@ namespace SpaceVoyage.Components.Pages.Main
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                PatchnotesList = await context.PatchNotes.ToListAsync();
+                PatchnotesList = await context.Posts.ToListAsync();
                 PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
                 numOfPatchnotes = PatchnotesList.Count;
                 numOfPages = (int)Math.Ceiling(numOfPatchnotes / 10.0);

@@ -20,15 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\Patchnotes.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\Users.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\uploadPictures\" />
   </ItemGroup>
 

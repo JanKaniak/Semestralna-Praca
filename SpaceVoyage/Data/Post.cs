@@ -2,7 +2,7 @@
 
 namespace SpaceVoyage.Data
 {
-    public class Patchnote
+    public class Post
     {
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field has to be filled!")]
@@ -12,5 +12,7 @@ namespace SpaceVoyage.Data
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
         public string? FilePath { get; set; }
+
+        public string? Type { get; set; }
     }
 }

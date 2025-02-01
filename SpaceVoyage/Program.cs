@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var PatchnoteConnectionString = builder.Configuration.GetConnectionString("PatchnoteDB");
-var UserConnectionString = builder.Configuration.GetConnectionString("UserDB");
+var DatabaseConnectionString = builder.Configuration.GetConnectionString("Database");
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -21,8 +20,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/logout";
     });
 
-builder.Services.AddDbContextFactory<PatchnoteDataContext>(options => options.UseSqlite(PatchnoteConnectionString));
-builder.Services.AddDbContextFactory<UserDataContext>(options => options.UseSqlite(UserConnectionString));
+builder.Services.AddDbContextFactory<DatabaseContext>(options => options.UseSqlite(DatabaseConnectionString));
 
 
 builder.Services.AddAuthorization();

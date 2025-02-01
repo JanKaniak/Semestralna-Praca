@@ -1,4 +1,4 @@
-﻿@page "/news"
+﻿@page "/forum"
 @rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SpaceVoyage.Data
@@ -12,21 +12,19 @@
 {
     <div class="container">
         <div class="list-group">
-            <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
+            <EditForm Model="@NewPost" OnValidSubmit="CreateNewPost">
                 <DataAnnotationsValidator />
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
-                    <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title" />
-                    <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
+                    <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+                    <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPost.Title" />
+                    <ValidationMessage For="() => NewPost.Title" class="errorMessages"></ValidationMessage>
                 </div>
 
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description" />
-                    <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
+                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPost.Description" />
+                    <ValidationMessage For="() => NewPost.Description" class="errorMessages"></ValidationMessage>
                 </div>
-
-                <InputFile OnChange="LoadFile" />
 
                 <div class="mb-3">
                     <div id="Error" class="form-text">
@@ -45,16 +43,11 @@ else
 {
     <div class="news">
         <div>
-            @if (PatchnotesList != null)
+            @if (PostsList != null)
             {
-                <div class="site-header">
-
-
-                </div>
-
                 int numOfCycles = 0;
                 <div class="list-group">
-                    @if (!EditShowForm && !ShowPatchnote)
+                    @if (!EditShowForm && !ShowPost)
                     {
                         <div class="showPatchnotesList">
                             <AuthorizeView Roles="Administrator">
@@ -95,71 +88,59 @@ else
                         </div>
                     }
 
-                    @for (int i = currentPageNumber; i < numOfPatchnotes; i++)
+                    @for (int i = currentPageNumber; i < numOfPosts; i++)
                     {
-                        var patchnote = PatchnotesList.ElementAt(i);
+                        var forumPost = PostsList.ElementAt(i);
                         if (numOfCycles < 10)
                         {
-                            @if (!EditShowForm && !ShowPatchnote)
+                            @if (!EditShowForm && !ShowPost)
                             {
-                                if (patchnote.Type == "patchnote")
+                                if (forumPost.Type == "forum")
                                 {
                                     <div class="container">
                                         <div class="patchnote">
                                             <div align="left">
-                                                <a href="/news/patchnote-@patchnote.Id" style="overflow: hidden;display: inline-block;">
-                                                    @patchnote.Title
+                                                <a href="/forum/forumpost-@forumPost.Id" style="overflow: hidden;display: inline-block;">
+                                                    @forumPost.Title
                                                 </a>
                                             </div>
                                             <div align="right">
-                                                @patchnote.ReleaseDate
+                                                @forumPost.ReleaseDate
                                             </div>
                                         </div>
 
                                         <AuthorizeView Roles="Administrator">
                                             <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
-                                                <button class="btn btn-danger btn-sm" @onclick="() => RemovePatchnote(patchnote)">Remove</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
                                             </div>
                                         </AuthorizeView>
                                     </div>
                                 }
-                                
+
+
 
                             }
-                            else if (EditShowForm && !ShowPatchnote)
+                            else if (EditShowForm && !ShowPost)
                             {
-                                @if (PatchnoteToUpdate != null && PatchnoteToUpdate.Id == patchnote.Id)
+                                @if (PostToUpdate != null && PostToUpdate.Id == forumPost.Id)
                                 {
-                                    <EditForm Model="@PatchnoteToUpdate" OnValidSubmit="UpdatePatchnote">
+                                    <EditForm Model="@PostToUpdate" OnValidSubmit="UpdatePost">
                                         <DataAnnotationsValidator />
                                         <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
-                                            <InputText type="text" class="form-control" id="titleForm" @bind-value="patchnote.Title" />
-                                            <ValidationMessage For="() => patchnote.Title" class="errorMessages"></ValidationMessage>
+                                            <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+                                            <InputText type="text" class="form-control" id="titleForm" @bind-value="forumPost.Title" />
+                                            <ValidationMessage For="() => forumPost.Title" class="errorMessages"></ValidationMessage>
 
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="patchnote.Description" />
-                                            <ValidationMessage For="() => patchnote.Description" class="errorMessages"></ValidationMessage>
+                                            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="forumPost.Description" />
+                                            <ValidationMessage For="() => forumPost.Description" class="errorMessages"></ValidationMessage>
                                         </div>
 
-                                        @code {
-                                            bool imageUploaded = false;
-                                        }
-                                        @if (!string.IsNullOrWhiteSpace(patchnote.FilePath))
-                                        {
-                                            <img src="@patchnote.FilePath" style="max-width: 50%; max-height: 50%" />
-                                            <button type="button" class="nbt btn btn-danger" @onclick="() => RemoveImage(patchnote)">Remove</button>
-                                            imageUploaded = true;
-                                        }
-                                        <InputFile OnChange="LoadFile" disabled="@imageUploaded" />
-
-                                        <div class="mb-3">
-                                            <div id="Error" class="form-text">@ErrorMessage</div>
-                                        </div>
+        
                                         <button type="submit" class="nbt btn btn-danger">Update</button>
                                         <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
                                     </EditForm>
@@ -172,13 +153,9 @@ else
                         }
                         numOfCycles++;
                     }
-
-                    @if (!EditShowForm && !ShowPatchnote)
-                    {
-                        
-                    }
                 </div>
             }
         </div>
     </div>
 }
+

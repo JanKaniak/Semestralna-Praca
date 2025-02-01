@@ -2,7 +2,7 @@
 @using SpaceVoyage.Data
 @using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
-@inject IDbContextFactory<UserDataContext> UserDataContextFactory;
+@inject IDbContextFactory<DatabaseContext> UserDataContextFactory;
 
 <EditForm Model="@UserLoginInput" OnValidSubmit="Authentification" FormName="LoginForm">
     <DataAnnotationsValidator/>

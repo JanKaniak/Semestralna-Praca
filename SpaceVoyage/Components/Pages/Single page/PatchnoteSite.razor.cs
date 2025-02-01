@@ -13,11 +13,11 @@ namespace SpaceVoyage.Components.Pages.Single_page
     {
         [Parameter]
         public string Id { get; set; }
-        public PatchnoteDataContext? context;
-        public List<Patchnote>? PatchnotesList { get; set; }
+        public DatabaseContext? context;
+        public List<Post>? PatchnotesList { get; set; }
 
         
-        public Patchnote? PatchnoteToShow { get; set; }
+        public Post? PatchnoteToShow { get; set; }
 
         public string? FilePath { get; set; }
 
@@ -28,9 +28,9 @@ namespace SpaceVoyage.Components.Pages.Single_page
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                PatchnoteToShow = context.PatchNotes.FirstOrDefault(x => x.Id == Int32.Parse(Id));
-                PatchnotesList = await context.PatchNotes.ToListAsync();
-                if (PatchnoteToShow != null)
+                PatchnoteToShow = context.Posts.FirstOrDefault(x => x.Id == Int32.Parse(Id));
+                PatchnotesList = await context.Posts.ToListAsync();
+                if (PatchnoteToShow != null && !string.IsNullOrWhiteSpace(PatchnoteToShow.FilePath))
                 {
                     FilePath = $"uploadPictures/{PatchnoteToShow.FilePath}";
                 }

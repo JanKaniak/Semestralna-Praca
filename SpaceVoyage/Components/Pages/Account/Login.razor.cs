@@ -15,7 +15,7 @@ namespace SpaceVoyage.Components.Pages.Account
         public LoginInput UserLoginInput { get; set; } = new();
         public string? ErrorMessage { get; set; }
         
-        private UserDataContext? context;
+        private DatabaseContext? context;
         public string? UserName { get; set; }
 
 
