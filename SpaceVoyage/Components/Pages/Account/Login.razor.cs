@@ -38,7 +38,8 @@ namespace SpaceVoyage.Components.Pages.Account
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, UserLoginInput.UserName),
-                new Claim(ClaimTypes.Role, userAccount.UserRole)
+                new Claim(ClaimTypes.Role, userAccount.UserRole),
+                new Claim(ClaimTypes.NameIdentifier, userAccount.UserId.ToString())
             };
 
             var identity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);

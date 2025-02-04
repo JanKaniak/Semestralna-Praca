@@ -6,6 +6,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 @inject ILogger<PatchnoteSite> Logger
+@inject IJSRuntime JS
 
 
 
@@ -27,30 +28,43 @@
             </div>
         </div>
 
-        <div class="comment">
-            <EditForm Model="@NewComment" OnValidSubmit="CreateNewComment">
-                <DataAnnotationsValidator />
+        <AuthorizeView>
+            <ChildContent Context="authUser">
+                <div class="comment">
+                    <EditForm Model="@NewComment" OnValidSubmit="CreateNewComment">
+                        <DataAnnotationsValidator />
 
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewComment.Text" />
-                    <ValidationMessage For="() => NewComment.Text" class="errorMessages"></ValidationMessage>
-                </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewComment.Text" />
+                            <ValidationMessage For="() => NewComment.Text" class="errorMessages"></ValidationMessage>
+                        </div>
 
-                <div class="mb-3">
-                    <div id="Error" class="form-text">
-                        <p style="color:red">@ErrorMessage</p>
-                    </div>
+                        <div class="mb-3">
+                            <div id="Error" class="form-text">
+                                <p style="color:red">@ErrorMessage</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="nbt btn btn-danger">Post</button>
+                    </EditForm>
                 </div>
-                <button type="submit" class="nbt btn btn-danger">Post</button>
-            </EditForm>
-        </div>
+            </ChildContent>
+        </AuthorizeView>
 
         <div class="comments">
             <div align="left">
-                <pre>ohoihoi
-                    fuzfguzfgluzfglzugfulzguzlgluzgl
-                    uzgluzgluzgluz
+                <pre>
+                    @foreach(var comment in CommentList) {
+                        var user = UserList.Find(x => x.UserId == comment.UserId);
+                        <div class="comment">
+                            <div align="left">
+                                <pre>@user.UserName</pre>
+                                <pre>@comment.Text</pre>
+                            </div>
+
+                            
+                        </div>
+                    }
 
                 </pre>
 

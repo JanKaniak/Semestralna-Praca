@@ -197,6 +197,8 @@ body {
     padding-bottom: 1rem;
     width: 95%;
     margin-top: 0.7rem;
+    font-size: 1.2rem;
+    border: 0.1rem solid;
 }
 
 .comments {
@@ -207,6 +209,14 @@ body {
     padding-bottom: 1rem;
     width: 95%;
     margin-top: 0.7rem;
+}
+
+.site-header {
+    grid-area: fn;
+    background-color: lightblue;
+    color: black;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 480px) {

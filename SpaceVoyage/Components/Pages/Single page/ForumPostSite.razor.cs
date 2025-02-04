@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using SpaceVoyage.Data;
 using System.Security.Claims;
 
@@ -13,12 +14,17 @@ namespace SpaceVoyage.Components.Pages.Single_page
         public DatabaseContext? context;
         public List<Post>? PostsList { get; set; }
 
-        public Comment? NewComment { get; set; }
+        [SupplyParameterFromForm]
+        public Comment? NewComment { get; set; } = new Comment();
 
 
         public Post? PostToShow { get; set; }
 
         public string? ErrorMessage  { get; set; }
+
+        public List<Comment>? CommentList { get; set; }
+
+        public List<User>? UserList { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -27,6 +33,9 @@ namespace SpaceVoyage.Components.Pages.Single_page
             {
                 PostToShow = context.Posts.FirstOrDefault(x => x.Id == Int32.Parse(Id));
                 PostsList = await context.Posts.ToListAsync();
+                var comments = await context.Comments.ToListAsync();
+                CommentList = comments.FindAll(x =>  x.PostId == Int32.Parse(Id));
+                UserList = await context.Users.ToListAsync();
             }
             
         }
@@ -43,8 +52,10 @@ namespace SpaceVoyage.Components.Pages.Single_page
                 if (userId != null)
                 {
                     NewComment.UserId = Int32.Parse(userId);
+                    NewComment.PostId = Int32.Parse(Id);
                     context?.Comments?.Add(NewComment);
                     context?.SaveChangesAsync();
+                    await JS.InvokeVoidAsync("eval", "window.location.reload();");
 
                 }
             }

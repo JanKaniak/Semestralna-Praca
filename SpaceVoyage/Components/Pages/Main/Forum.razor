@@ -42,120 +42,124 @@
 else
 {
     <div class="news">
-        <div>
-            @if (PostsList != null)
-            {
-                int numOfCycles = 0;
-                <div class="list-group">
-                    @if (!EditShowForm && !ShowPost)
-                    {
-                        <div class="showPatchnotesList">
-                            <AuthorizeView Roles="Administrator">
-                                <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
-                            </AuthorizeView>
-                        </div>
+
+        <div class="site-header">
+            <h1>FORUM</h1>
+            <h6>Please be respectful to everyone. Any criticism or other disinformation about game will be deleted.</h6>
+
+        </div>
+        @if (PostsList != null)
+        {
+            int numOfCycles = 0;
+            <div class="list-group">
+                @if (!EditShowForm && !ShowPost)
+                {
+                    <div class="showPatchnotesList">
+                        <AuthorizeView Roles="Administrator">
+                            <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
+                        </AuthorizeView>
+                    </div>
 
 
 
 
-                        <div class="container">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="/news">1</a></li>
-                                    @for (int j = 0; j < numOfPages - 1; j++)
+                    <div class="container">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="/news">1</a></li>
+                                @for (int j = 0; j < numOfPages - 1; j++)
+                                {
+                                    int pageNumber = j + 1;
+                                    <li class="page-item"><a class="page-link" href="/news-@pageNumber">@(pageNumber + 1)</a></li>
+                                }
+                                @if (currentPageNumber + 1 <= numOfPages)
+                                {
+                                    <li class="page-item"><a class="page-link" href="/news-@(currentPageNumber+1)">Next</a></li>
+                                }
+                                else
+                                {
+                                    @if (currentPageNumber > 0)
                                     {
-                                        int pageNumber = j + 1;
-                                        <li class="page-item"><a class="page-link" href="/news-@pageNumber">@(pageNumber + 1)</a></li>
-                                    }
-                                    @if (currentPageNumber + 1 <= numOfPages)
-                                    {
-                                        <li class="page-item"><a class="page-link" href="/news-@(currentPageNumber+1)">Next</a></li>
+                                        <li class="page-item"><a class="page-link" href="/news-@(currentPageNumber)">Previous</a></li>
                                     }
                                     else
                                     {
-                                        @if (currentPageNumber > 0)
-                                        {
-                                            <li class="page-item"><a class="page-link" href="/news-@(currentPageNumber)">Previous</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
-                                        }
+                                        <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
                                     }
-                                </ul>
-                            </nav>
-                        </div>
-                    }
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                }
 
-                    @for (int i = currentPageNumber; i < numOfPosts; i++)
+                @for (int i = currentPageNumber; i < numOfPosts; i++)
+                {
+                    var forumPost = PostsList.ElementAt(i);
+                    if (numOfCycles < 10)
                     {
-                        var forumPost = PostsList.ElementAt(i);
-                        if (numOfCycles < 10)
+                        @if (!EditShowForm && !ShowPost)
                         {
-                            @if (!EditShowForm && !ShowPost)
+                            if (forumPost.Type == "forum")
                             {
-                                if (forumPost.Type == "forum")
-                                {
-                                    <div class="container">
-                                        <div class="patchnote">
-                                            <div align="left">
-                                                <a href="/forum/forumpost-@forumPost.Id" style="overflow: hidden;display: inline-block;">
-                                                    @forumPost.Title
-                                                </a>
-                                            </div>
-                                            <div align="right">
-                                                @forumPost.ReleaseDate
-                                            </div>
+                                <div class="container">
+                                    <div class="patchnote">
+                                        <div align="left">
+                                            <a href="/forum/forumpost-@forumPost.Id" style="overflow: hidden;display: inline-block;">
+                                                @forumPost.Title
+                                            </a>
                                         </div>
-
-                                        <AuthorizeView Roles="Administrator">
-                                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
-                                                <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
-                                            </div>
-                                        </AuthorizeView>
+                                        <div align="right">
+                                            @forumPost.ReleaseDate
+                                        </div>
                                     </div>
-                                }
 
-
-
-                            }
-                            else if (EditShowForm && !ShowPost)
-                            {
-                                @if (PostToUpdate != null && PostToUpdate.Id == forumPost.Id)
-                                {
-                                    <EditForm Model="@PostToUpdate" OnValidSubmit="UpdatePost">
-                                        <DataAnnotationsValidator />
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Post Title</label>
-                                            <InputText type="text" class="form-control" id="titleForm" @bind-value="forumPost.Title" />
-                                            <ValidationMessage For="() => forumPost.Title" class="errorMessages"></ValidationMessage>
-
+                                    <AuthorizeView Roles="Administrator">
+                                        <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                            <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
+                                            <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="forumPost.Description" />
-                                            <ValidationMessage For="() => forumPost.Description" class="errorMessages"></ValidationMessage>
-                                        </div>
-
-        
-                                        <button type="submit" class="nbt btn btn-danger">Update</button>
-                                        <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
-                                    </EditForm>
-                                }
+                                    </AuthorizeView>
+                                </div>
                             }
+
+
+
                         }
-                        else
+                        else if (EditShowForm && !ShowPost)
                         {
-                            break;
+                            @if (PostToUpdate != null && PostToUpdate.Id == forumPost.Id)
+                            {
+                                <EditForm Model="@PostToUpdate" OnValidSubmit="UpdatePost">
+                                    <DataAnnotationsValidator />
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+                                        <InputText type="text" class="form-control" id="titleForm" @bind-value="forumPost.Title" />
+                                        <ValidationMessage For="() => forumPost.Title" class="errorMessages"></ValidationMessage>
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                                        <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="forumPost.Description" />
+                                        <ValidationMessage For="() => forumPost.Description" class="errorMessages"></ValidationMessage>
+                                    </div>
+
+
+                                    <button type="submit" class="nbt btn btn-danger">Update</button>
+                                    <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+                                </EditForm>
+                            }
                         }
-                        numOfCycles++;
                     }
-                </div>
-            }
-        </div>
+                    else
+                    {
+                        break;
+                    }
+                    numOfCycles++;
+                }
+            </div>
+        }
     </div>
 }
 
