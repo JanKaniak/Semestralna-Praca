@@ -4,9 +4,10 @@
 @using Microsoft.EntityFrameworkCore
 @using SpaceVoyage.Data
 @inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
-@inject ILogger<News> Logger
-@inject AuthenticationStateProvider AuthStateProvider
+@inject ILogger<Reviews> Logger
+@inject IJSRuntime JS
 
 
 <div class="review-grid">
