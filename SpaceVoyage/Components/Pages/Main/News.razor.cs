@@ -36,6 +36,8 @@ namespace SpaceVoyage.Components.Pages.Main
 
         protected override async Task OnInitializedAsync()
         {
+            StateHasChanged();
+
             CreateShowForm = false;
             await ShowPatchnotes();
             ErrorMessage = string.Empty;

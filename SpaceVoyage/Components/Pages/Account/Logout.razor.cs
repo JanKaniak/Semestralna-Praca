@@ -15,6 +15,8 @@ namespace SpaceVoyage.Components.Pages.Account
             {
                 await HttpContext.SignOutAsync();
                 NavigationManager.NavigateTo("/logout", true);
+                await Task.Delay(500);
+                NavigationManager.NavigateTo("/", true);
             }
         }
     }

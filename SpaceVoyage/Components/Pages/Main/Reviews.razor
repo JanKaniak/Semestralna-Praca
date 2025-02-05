@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@page "/reviews"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
+@inject ILogger<News> Logger
+@inject AuthenticationStateProvider AuthStateProvider
+
+
+<div class="review-grid">
+    <div class="site-header">
+        <h1>REVIEWS</h1>
+    </div>
+
+
+    <div class="review-column-positive-header">
+        <p>Positive reviews</p>
+    </div>
+    <div class="review-column-positive">
+        <div class="user-review">
+            <pre>Pozitivna recenzia</pre>
+        </div>
+
+        <div class="revier-button">
+            <a href="#">Edit</a>
+            <a href="#">Remove</a>
+        </div>
+    </div>
+    <div class="review-column-middle-header">
+        <p>Neutral reviews</p>
+    </div>
+    <div class="review-column-negative-header">
+        <p>Negative reviews</p>
+    </div>
+</div>

@@ -102,7 +102,10 @@ body {
     background-color: lightblue;
     color: black;
     padding: 1rem;
-    margin: auto;
+    justify-content: flex-start;
+    max-width: 100%;
+    width: auto;
+    font-size: 20px;
 }
 
 
@@ -117,13 +120,15 @@ body {
     width: 100%;
     height: 5rem;
     background-color: lightgrey;
-    border-bottom: 0.5rem solid #eee;
-    border-bottom: 1px solid black;
+    /*border-bottom: 0.5rem solid #eee;*/
+    border: 1px solid black;
     padding-right: 1rem;
     padding-left: 1rem;
-    padding-top: 1rem;
-    display: flex;
+    padding-top: 1.5rem;
     justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
 }
 
 .adminButtonsEditRemove {
@@ -217,12 +222,62 @@ body {
     color: black;
     padding: 1rem;
     margin-bottom: 1rem;
+    min-height: 10rem;
+}
+
+.user-review {
+    grid-area: ur;
+    border: solid 0.2rem black;
+}
+
+.revier-button {
+    grid-area: rb;
+}
+
+.review-grid {
+}
+
+.review-column-positive {
+    background-color: wheat;
+    grid-area: rcp;
+    width: 100%;
+}
+
+.review-column-middle {
+    background-color: wheat;
+    grid-area: rcm;
+    width: 100%;
+}
+
+.review-column-negative {
+    background-color: wheat;
+    grid-area: rcn;
+    width: 100%;
+}
+
+.review-column-positive-header  {
+    grid-area: rcph;
+    width: 100%;
+    background-color: wheat;
+}
+
+.review-column-middle-header {
+    grid-area: rcmh;
+    width: 100%;
+    background-color: wheat;
+}
+
+.review-column-negative-header {
+    grid-area: rcnh;
+    width: 100%;
+    background-color: wheat;
 }
 
 @media (min-width: 480px) {
-
-    .news, .text-post{
+    .news, .text-post {
         width: 100%;
+        display: flex;
+        flex-direction: column;
     }
     .gridContainer {
         padding: 5px;
@@ -535,9 +590,6 @@ body {
         height: fit-content;
     }
 
-    .list-group {
-        font-size: 20px;
-    }
 
     .btn {
         font-size: 40px;
@@ -587,4 +639,31 @@ body {
             ". . .";
         gap: 5px;
     }*/
+
+    .review-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto 2rem auto auto auto;
+        grid-template-areas:
+            "fn fn fn"
+            ". . ."
+            "rb . ."
+            "rcph rcmh rcnh"
+            "rcp rcm rcn";
+        gap: 0.3rem;
+        width: 95%;
+        margin: auto;
+    }
+
+    .review-column-positive ,.review-column-middle, .review-column-negative {
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+        grid-template-rows: 1rem 1rem;
+        grid-template-areas:
+            "ur rb"
+            "ur rb";
+        grid-column-gap: 1rem;
+        grid-row-gap: 1rem;
+        margin: auto;
+    }
 }
