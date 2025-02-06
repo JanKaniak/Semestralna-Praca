@@ -24,10 +24,14 @@
             <pre>Pozitivna recenzia</pre>
         </div>
 
-        <div class="revier-button">
-            <a href="#">Edit</a>
-            <a href="#">Remove</a>
-        </div>
+        <AuthorizeView Roles="User,Administrator">
+            <div class="revier-button">
+                <a href="#">Edit</a>
+                <a href="#">Remove</a>
+            </div>
+        </AuthorizeView>
+            
+        
     </div>
     <div class="review-column-middle-header">
         <p>Neutral reviews</p>
