@@ -41,7 +41,12 @@
                         <div class="user-review">
                             <div class="review-left-side">
                                 <div align="center">
-                                    <pre><strong>@UserList.Find(x => x.UserId == review.UserId).UserName</strong></pre>
+                                    @if (UserList.Find(x => x.UserId == review.UserId) != null) {
+                                        <pre><strong>@UserList.Find(x => x.UserId == review.UserId).Name</strong></pre>
+                                        
+                                    } else {
+                                        <pre><strong>Unknown User</strong></pre>
+                                    }
                                     <pre>@review.ReleaseDate</pre>
                                 </div>
                             </div>
@@ -98,7 +103,15 @@
 
                             <div class="review-left-side">
                                 <div align="center">
-                                    <pre><strong>@UserList.Find(x => x.UserId == review.UserId).UserName</strong></pre>
+                                    @if (UserList.Find(x => x.UserId == review.UserId) != null)
+                                    {
+                                        <pre><strong>@UserList.Find(x => x.UserId == review.UserId).Name</strong></pre>
+
+                                    }
+                                    else
+                                    {
+                                        <pre><strong>Unknown User</strong></pre>
+                                    }
                                     <pre>@review.ReleaseDate</pre>
                                 </div>
                             </div>

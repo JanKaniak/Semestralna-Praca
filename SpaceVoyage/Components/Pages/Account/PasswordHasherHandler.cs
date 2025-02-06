@@ -16,7 +16,7 @@ namespace SpaceVoyage.Components.Pages.Account
             return passwordHasher.HashPassword(user, password);
         }
 
-        public bool CorrectPassword(User user,string enteredPassword, string storedHash)
+        public bool CorrectPassword(User user, string storedHash, string enteredPassword)
         {
             var result = passwordHasher.VerifyHashedPassword(user, storedHash, enteredPassword);
             return result == PasswordVerificationResult.Success;

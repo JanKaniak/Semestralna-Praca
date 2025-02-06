@@ -54,19 +54,23 @@
         <div class="comments">
             <div align="left">
                 <pre>
-                    @foreach(var comment in CommentList) {
+                    @foreach (var comment in CommentList)
+                    {
                         var user = UserList.Find(x => x.UserId == comment.UserId);
+                        string name = "Unknown user";
+                        if (user != null)
+                        {
+                            name = user.Name;
+                        }
                         <div class="comment">
                             <div align="left">
-                                <pre>@user.UserName</pre>
+                                <pre><strong>@name</strong></pre>
                                 <pre>@comment.Text</pre>
                             </div>
-
-                            
                         </div>
                     }
 
-                </pre>
+                    </pre>
 
             </div>
         </div>
