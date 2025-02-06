@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.JSInterop;
 using SpaceVoyage.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Claims;
 
 namespace SpaceVoyage.Components.Pages.Main
 {
@@ -33,12 +35,27 @@ namespace SpaceVoyage.Components.Pages.Main
 
         public int numOfPages { get; set; }
 
+        private string? UserId { get; set; }
+        public List<User>? UserList { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             CreateShowForm = false;
             await ShowPosts();
             ErrorMessage = string.Empty;
             currentPageNumber = 0;
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            if (user != null)
+            {
+                if (user.Identity.IsAuthenticated)
+                {
+                    UserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    UserList = await context.Users.ToListAsync();
+
+                }
+            }
         }
 
         //Create
@@ -67,6 +84,7 @@ namespace SpaceVoyage.Components.Pages.Main
                         ErrorMessage = "Patch with this title already exists!";
                         return;
                     }
+                    NewPost.UserId = Int32.Parse(UserId);
                     NewPost.Type = "forum";
                     context?.Posts.Add(NewPost);
                     context?.SaveChangesAsync();
@@ -168,6 +186,23 @@ namespace SpaceVoyage.Components.Pages.Main
             EditShowForm = false;
             CreateShowForm = false;
             await ShowPosts();
+        }
+
+        public bool CreatedPost(Post post)
+        {
+            if (!string.IsNullOrWhiteSpace(UserId))
+            {
+
+                if (UserId == post.UserId.ToString())
+                {
+                    return true;
+                }
+                if (UserList.Find(x => x.UserId == Int32.Parse(UserId)).UserRole == "Administrator")
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }

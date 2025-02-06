@@ -35,7 +35,7 @@
 
                 <div align="left" style="margin-top: 0.8rem;">
                     <pre>Text</pre>
-                    <InputTextArea class="form-control" id="reviewText" rows="10" @bind-value="NewReview.Text" />
+                <InputTextArea class="form-control" id="reviewText" rows="10" @bind-value="NewReview.Text" maxlength="50" />
                     <ValidationMessage For="() => NewReview.Text" class="errorMessages"></ValidationMessage>
                 </div>
 

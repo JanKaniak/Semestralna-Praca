@@ -14,5 +14,7 @@ namespace SpaceVoyage.Data
         public string? FilePath { get; set; }
 
         public string? Type { get; set; }
+
+        public int UserId { get; set; }
     }
 }

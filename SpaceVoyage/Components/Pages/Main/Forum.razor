@@ -5,6 +5,7 @@
 @inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
 @inject NavigationManager NavigationManager
 @inject ILogger<News> Logger
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>News</PageTitle>
 
@@ -115,10 +116,13 @@ else
                                     </div>
 
                                     <AuthorizeView Roles="Administrator,User">
-                                        <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                            <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
-                                            <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
-                                        </div>
+                                        @if (CreatedPost(forumPost))
+                                        {
+                                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
+                                            </div>
+                                        }
                                     </AuthorizeView>
                                 </div>
                             }
