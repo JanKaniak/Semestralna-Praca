@@ -59,7 +59,8 @@ namespace SpaceVoyage.Components.Pages.Main
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                PostsList = await context.Posts.ToListAsync();
+                var list = await context.Posts.ToListAsync();
+                PostsList = list.FindAll(x => x.Type == "forum");
                 PostsList = PostsList.OrderByDescending(p => p.ReleaseDate).ToList();
 
                 numOfPosts = PostsList.Count;

@@ -35,13 +35,13 @@
                     <div class="container">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="/news">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="/news">1</a></li>
+                                <li class="page-item"><a class="page-link" href="/forum">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="/forum">1</a></li>
                                 @for (int j = 0; j < numOfPages - 1; j++)
                                 {
                                     int pageNumber = j + 1;
-                                    <li class="page-item"><a class="page-link" href="/forum-@pageNumber">@(pageNumber + 1)</a></li>
-                                
+                                <li class="page-item"><a class="page-link" href="/forum-@pageNumber">@(pageNumber + 1)</a></li>
+                            }
                                 @if (currentPageNumber + 1 <= numOfPages)
                                 {
                                 <li class="page-item"><a class="page-link" href="/forum-@(currentPageNumber+1)">Next</a></li>
@@ -57,7 +57,7 @@
                                     <li class="page-item"><a class="page-link" href="/forum">Previous</a></li>
                                     }
                                 }
-                            }
+                           
                             </ul>
                         </nav>
                     </div>
