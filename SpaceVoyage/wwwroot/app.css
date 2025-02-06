@@ -444,7 +444,8 @@ body {
             ". fn fn fn . "
             ". in in in . ";
         gap: 5px;
-        /*margin: auto;*/
+        margin: auto;
+        width: 100%;
     }
 
     .btn {
@@ -630,6 +631,7 @@ body {
             ". in in in . ";
         gap: 5px;
         /*margin: auto;*/
+        
     }
 
     .review-grid {
@@ -802,7 +804,8 @@ body {
             ". fn fn fn ."
             ". in in in .";
         gap: 5px;
-        /*margin: auto;*/
+        width: 90%;
+        margin: auto;
     }
 
     .humbleImage {

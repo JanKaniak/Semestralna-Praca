@@ -118,7 +118,7 @@ else
                                     <AuthorizeView Roles="Administrator,User">
                                         @if (CreatedPost(forumPost))
                                         {
-                                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                                            <div class="adminButtonsEditRemove" role="group" aria-label="Basic example" style="margin-top: 0.5rem; margin-bottom: 0.9rem;">
                                                 <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
                                                 <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
                                             </div>

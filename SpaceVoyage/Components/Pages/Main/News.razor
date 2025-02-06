@@ -17,13 +17,13 @@
             <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
                 <DataAnnotationsValidator />
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
+                    <label for="title" class="form-label">Patchnote Title</label>
                     <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title" />
                     <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <label for="text" class="form-label">Description</label>
                     <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description" />
                     <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
                 </div>
