@@ -24,8 +24,13 @@ namespace SpaceVoyage.Components.Pages.Single_page
             context ??= await DataContextFactory.CreateDbContextAsync();
             if (context != null && NewReview != null)
             {
-                if (!string.IsNullOrWhiteSpace(NewReview.Header) && (NewReview.Rating < 0 || NewReview.Rating > 5) && !string.IsNullOrWhiteSpace(NewReview.Text))
+                if (!string.IsNullOrWhiteSpace(NewReview.Header) && !string.IsNullOrWhiteSpace(NewReview.Text))
                 {
+                    if ((NewReview.Rating < 0 || NewReview.Rating > 5))
+                    {
+                        ErrorMessage = "All fields must be filled in, and a rating must be selected!";
+                        return;
+                    }
                     var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
                     var user = authState.User;
                     if (user != null)

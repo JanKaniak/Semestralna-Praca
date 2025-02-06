@@ -1,0 +1,39 @@
+﻿@page "/register"
+@using SpaceVoyage.Data
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager NavigationManager
+@inject IDbContextFactory<DatabaseContext> DataContextFactory;
+
+<EditForm Model="@UserRegisterInput" OnValidSubmit="Registration" FormName="LoginInput">
+    <DataAnnotationsValidator />
+    <div class="gridContainerLoginOut">
+        <div class="loginForm">
+            <div class="mb-3">
+                <label for="username" class="form-label">User name</label>
+                <InputText class="form-control" @bind-value="UserRegisterInput.UserName" placeholder="Username" />
+                <ValidationMessage For="() => UserRegisterInput.UserName"></ValidationMessage>
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <InputText class="form-control" @bind-value="UserRegisterInput.Name" placeholder="Name" />
+                <ValidationMessage For="() => UserRegisterInput.Name"></ValidationMessage>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <InputText class="form-control" @bind-value="UserRegisterInput.Password" placeholder="Password" type="password" />
+                <ValidationMessage For="() => UserRegisterInput.Password"></ValidationMessage>
+            </div>
+
+            
+
+            <div class="mb-3">
+                <div id="Error" class="form-text">@ErrorMessage</div>
+            </div>
+            <div class="d-grid gap-2 loginButton">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</EditForm>

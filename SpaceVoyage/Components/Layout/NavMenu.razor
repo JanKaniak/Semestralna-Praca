@@ -41,27 +41,12 @@
         <NotAuthorized>
             <div class="nav-button-login-logout">
                 <a href="/login">Login</a>
+                <a href="/register">Register</a>
             </div>
         </NotAuthorized>
         <Authorized>
             <div class="nav-button-login-logout">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div class="container-fluid">
-                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
-                                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @UserName
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                <a href="/logout">Logout</a>
             </div>
         </Authorized>
     </AuthorizeView>

@@ -39,8 +39,6 @@
                     if (review.Rating > 3)
                     {
                         <div class="user-review">
-
-
                             <div class="review-left-side">
                                 <div align="center">
                                     <pre><strong>@UserList.Find(x => x.UserId == review.UserId).UserName</strong></pre>
@@ -58,17 +56,17 @@
 
                                 <pre style="margin-top: 1rem;">@review.Text</pre>
                             </div>
-                        </div>
 
-                        <AuthorizeView Roles="User,Administrator">
-                            @if (CreatedReview(review))
-                            {
-                                <div class="revier-button">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Remove</a>
-                                </div>
-                            }
-                        </AuthorizeView>
+                            <AuthorizeView Roles="User,Administrator">
+                                @if (CreatedReview(review))
+                                {
+                                    <div class="revier-button">
+                                        <a href="#">Edit</a>
+                                        <a href="#">Remove</a>
+                                    </div>
+                                }
+                            </AuthorizeView>
+                        </div>
                     }
 
 
@@ -95,42 +93,47 @@
                 {
                     if (review.Rating <= 3)
                     {
-                        <div class="container">
-                            <div class="user-review">
+                        <div class="user-review">
 
 
-                                <div class="review-left-side">
-                                    <div align="center">
-                                        <pre><strong>@UserList.Find(x => x.UserId == review.UserId).UserName</strong></pre>
-                                        <pre>@review.ReleaseDate</pre>
-                                    </div>
-                                </div>
-
-                                <div class="review-right-side">
-                                    <pre><strong>@review.Header</strong></pre>
-
-
-
-
-
-                                    @for (int i = 0; i < @review.Rating; i++)
-                                    {
-                                        <span>⭐</span>
-                                    }
-                                    <pre style="margin-top: 1rem;">@review.Text</pre>
+                            <div class="review-left-side">
+                                <div align="center">
+                                    <pre><strong>@UserList.Find(x => x.UserId == review.UserId).UserName</strong></pre>
+                                    <pre>@review.ReleaseDate</pre>
                                 </div>
                             </div>
+
+                            <div class="review-right-side">
+                                <pre><strong>@review.Header</strong></pre>
+
+
+
+
+
+                                @for (int i = 0; i < @review.Rating; i++)
+                                {
+                                    <span>⭐</span>
+                                }
+                                <pre style="margin-top: 1rem;">@review.Text</pre>
+
+                                
+                            </div>
+
+
+                                <AuthorizeView Roles="User,Administrator">
+                                    @if (CreatedReview(review))
+                                    {
+                                        <div class="revier-button">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Remove</a>
+                                        </div>
+                                    }
+                                </AuthorizeView>
                         </div>
 
-                        <AuthorizeView Roles="User,Administrator">
-                            @if (CreatedReview(review))
-                            {
-                                <div class="revier-button">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Remove</a>
-                                </div>
-                            }
-                        </AuthorizeView>
+
+
+                        
                     }
 
 

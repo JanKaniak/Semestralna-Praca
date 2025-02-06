@@ -29,7 +29,14 @@ namespace SpaceVoyage.Components.Pages.Account
                 return;
             }
 
-            if (userAccount == null || userAccount.UserPassword != UserLoginInput.Password)
+            PasswordHasherHandler passwordHasher = new PasswordHasherHandler();
+            if (userAccount == null)
+            {
+                ErrorMessage = "Invalid username or password";
+                return;
+            }
+
+            if (!passwordHasher.CorrectPassword(userAccount,UserLoginInput.Password,userAccount.UserPassword))
             {
                 ErrorMessage = "Invalid username or password";
                 return;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpaceVoyage.Data
@@ -7,6 +8,7 @@ namespace SpaceVoyage.Data
     {
         public int UserId { get; set; }
         public string? UserName { get; set; }
+        public string? Name { get; set; }
         public string? UserPassword { get; set; }
         public string? UserRole { get; set; }
     }
