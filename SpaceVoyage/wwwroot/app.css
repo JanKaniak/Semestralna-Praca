@@ -704,4 +704,34 @@ body {
         grid-row-gap: 1rem;
         margin: auto;
     }
+
+    .review-header {
+        grid-area: rh;
+    }
+
+    .review-date {
+        grid-area: rd;
+    }
+
+    .review-user-name {
+        grid-area: ru;
+    }
+
+    .review-rating {
+        grid-area: rr;
+    }
+
+    .review-text {
+        grid-area: rt;
+    }
+
+    .user-review {
+        display: grid;
+        grid-template-columns: 3fr 2fr 5fr;
+        grid-template-areas:
+            "rh rh rh"
+            ". rd ."
+            "ru rr ."
+            ". rt rt";
+    }
 }

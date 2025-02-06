@@ -14,27 +14,26 @@ namespace SpaceVoyage.Components.Pages.Main
         public List<Review>? ReviewsList { get; set; }
 
         [SupplyParameterFromForm]
-        public Comment? NewComment { get; set; } = new Comment();
+        public Comment? NewReview { get; set; } = new Comment();
 
         public string? ErrorMessage { get; set; }
 
-        public List<Comment>? CommentList { get; set; }
-
         public List<User>? UserList { get; set; }
+
+        public string? UserName { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                //ReviewsList = await context.Posts.ToListAsync();
-                var comments = await context.Comments.ToListAsync();
+                ReviewsList = await context.Reviews.ToListAsync();
                 UserList = await context.Users.ToListAsync();
             }
 
         }
 
-        public async Task CreateNewComment()
+        public async Task CreateNewReview()
         {
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
@@ -45,8 +44,8 @@ namespace SpaceVoyage.Components.Pages.Main
                 var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId != null)
                 {
-                    NewComment.UserId = Int32.Parse(userId);
-                    context?.Comments?.Add(NewComment);
+                    NewReview.UserId = Int32.Parse(userId);
+                    context?.Comments?.Add(NewReview);
                     context?.SaveChangesAsync();
                     await JS.InvokeVoidAsync("eval", "window.location.reload();");
 

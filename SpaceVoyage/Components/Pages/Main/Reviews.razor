@@ -20,16 +20,44 @@
         <p>Positive reviews</p>
     </div>
     <div class="review-column-positive">
-        <div class="user-review">
-            <pre>Pozitivna recenzia</pre>
-        </div>
+        @foreach (var review in ReviewsList)
+        {
+            if (review.Rating > 3)
+            {
+                <div class="user-review">
+                    <div class="review-header">
+                        <pre><strong>@review.Header</strong></pre>
+                    </div>
 
-        <AuthorizeView Roles="User,Administrator">
-            <div class="revier-button">
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-            </div>
-        </AuthorizeView>
+                    <div class="review-date">
+                        <pre>@review.ReleaseDate</pre>
+                    </div>
+
+                    <div class="review-user-name">
+                        @UserName = @UserList.Find(x => x.UserId == review.UserId).UserName;
+                        <pre><strong>@UserName</strong></pre>
+                    </div>
+
+                    <div class="review-rating">
+                        <pre>@review.Rating</pre>
+                    </div>
+
+                    <div class="review-text">
+                        <pre>@review.Text</pre>
+                    </div>
+                </div>
+            }
+
+            <AuthorizeView Roles="User,Administrator">
+                <div class="revier-button">
+                    <a href="#">Edit</a>
+                    <a href="#">Remove</a>
+                </div>
+            </AuthorizeView>
+        }
+       
+
+        
             
         
     </div>
