@@ -1,0 +1,103 @@
+﻿@page "/forum-{pageNumber}"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
+@inject ILogger<News> Logger
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+
+<PageTitle>News</PageTitle>
+
+
+<div class="news">
+    <div class="site-header">
+        <h1>Patchnotes</h1>
+
+    </div>
+    <div class="list-group">
+
+        <div class="showPatchnotesList">
+            <AuthorizeView Roles="Administrator">
+                <button type="button" class="btn btn-danger" @onclick="() => OpenPageCreateNewPatchnote(Type)">Create</button>
+            </AuthorizeView>
+        </div>
+
+        <div class="container">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if (pageNumberInt > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="/forum-@(pageNumberInt-1)">Previous</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="/forum">Previous</a></li>
+                    }
+                    <li class="page-item"><a class="page-link" href="/forum">1</a></li>
+                    @for (int i = 0; i < numOfPages - 1; i++)
+                    {
+                        int pageNumber = i + 1;
+                        <li class="page-item"><a class="page-link" href="/forum-@pageNumber">@(pageNumber + 1)</a></li>
+                    }
+
+                    @if (pageNumberInt + 1 < numOfPages)
+                    {
+                        <li class="page-item"><a class="page-link" href="/forum-@(pageNumberInt+1)">Next</a></li>
+                    }
+                    else
+                    {
+                        @if (pageNumberInt > 0)
+                        {
+                            <li class="page-item"><a class="page-link" href="/forum-@(pageNumberInt)">Next</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="/forum">Previous</a></li>
+                        }
+                    }
+                </ul>
+            </nav>
+        </div>
+
+        @if (PostsList != null)
+        {
+            int numOfCycles = 0;
+
+            for (int i = pageNumberInt * 10; i < numOfPosts; i++)
+            {
+                var patchnote = PostsList.ElementAt(i);
+                if (numOfCycles < 10)
+                {
+                    <div class="patchnote">
+                        <div align="left">
+                            <a href="/news/patchnote-@patchnote.Id" style="overflow: hidden; display: inline-block; max-width: 35rem; white-space: nowrap; text-overflow: ellipsis; word-break: break-all;">
+                                @patchnote.Title
+                            </a>
+                        </div>
+                        <div align="right">
+                            @patchnote.ReleaseDate
+                        </div>
+                    </div>
+                    <AuthorizeView Roles="Administrator">
+                        <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
+                            <button class="btn btn-danger btn-sm" @onclick="() => OpenPage(patchnote)">Edit</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(patchnote)">Remove</button>
+                        </div>
+                    </AuthorizeView>
+                }
+                else
+                {
+                    break;
+                }
+                numOfCycles++;
+            }
+        }
+
+
+
+    </div>
+</div>
+
+

@@ -109,6 +109,8 @@ namespace SpaceVoyage.Components.Pages.Main
         {
             if (!string.IsNullOrWhiteSpace(UserId))
             {
+                Logger.LogInformation(UserId);
+                Logger.LogInformation(post.UserId.ToString());
 
                 if (UserId == post.UserId.ToString())
                 {

@@ -55,7 +55,8 @@ namespace SpaceVoyage.Components.Pages.Main
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                PatchnotesList = await context.Posts.ToListAsync();
+                var list = await context.Posts.ToListAsync();
+                PatchnotesList = list.FindAll(x => x.Type == "patchnote");
                 PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
 
                 numOfPatchnotes = PatchnotesList.Count;

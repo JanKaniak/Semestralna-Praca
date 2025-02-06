@@ -1,23 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using SpaceVoyage.Data;
-using System.Diagnostics;
-
 
 namespace SpaceVoyage.Components.Pages.Main
 {
-    public partial class NewsPage
+    public partial class ForumPage
     {
         [Parameter]
         public string pageNumber { get; set; }
 
         public DatabaseContext? context;
 
-        public List<Post>? PatchnotesList { get; set; }
-        public int numOfPatchnotes { get; set; }
+        public List<Post>? PostsList { get; set; }
+        public int numOfPosts { get; set; }
         public int numOfPages { get; set; }
         public int pageNumberInt { get; set; }
 
@@ -31,10 +27,11 @@ namespace SpaceVoyage.Components.Pages.Main
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                PatchnotesList = await context.Posts.ToListAsync();
-                PatchnotesList = PatchnotesList.OrderByDescending(p => p.ReleaseDate).ToList();
-                numOfPatchnotes = PatchnotesList.Count;
-                numOfPages = (int)Math.Ceiling(numOfPatchnotes / 10.0);
+                var list = await context.Posts.ToListAsync();
+                PostsList = list.FindAll(x => x.Type == "forum");
+                PostsList = PostsList.OrderByDescending(p => p.ReleaseDate).ToList();
+                numOfPosts = PostsList.Count;
+                numOfPages = (int)Math.Ceiling(numOfPosts / 10.0);
 
             }
         }
@@ -50,7 +47,7 @@ namespace SpaceVoyage.Components.Pages.Main
                     await context.SaveChangesAsync();
                 }
             }
-            await JS.InvokeVoidAsync("eval", "window.location.reload();");  
+            await JS.InvokeVoidAsync("eval", "window.location.reload();");
         }
 
         public void Return() { }
