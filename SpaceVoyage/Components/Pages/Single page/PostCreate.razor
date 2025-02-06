@@ -5,14 +5,14 @@
 @using SpaceVoyage.Data
 @inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
 @inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthStateProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="container">
     <div class="list-group">
         <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
             <DataAnnotationsValidator />
             <div class="mb-3">
-                <label for="title" class="form-label">Patchnote Title</label>
+                <label for="title" class="form-label">Post Title</label>
                 <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title" />
                 <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
             </div>
@@ -23,7 +23,10 @@
                 <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
             </div>
 
-            <InputFile OnChange="LoadFile" />
+            @if (Type == "patchnote")
+            {
+                <InputFile OnChange="LoadFile" />
+            }
 
             <div class="mb-3">
                 <div id="Error" class="form-text">

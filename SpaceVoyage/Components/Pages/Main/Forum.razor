@@ -9,39 +9,7 @@
 
 <PageTitle>News</PageTitle>
 
-@if (CreateShowForm)
-{
-    <div class="container">
-        <div class="list-group">
-            <EditForm Model="@NewPost" OnValidSubmit="CreateNewPost">
-                <DataAnnotationsValidator />
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Post Title</label>
-                    <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPost.Title" />
-                    <ValidationMessage For="() => NewPost.Title" class="errorMessages"></ValidationMessage>
-                </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPost.Description" />
-                    <ValidationMessage For="() => NewPost.Description" class="errorMessages"></ValidationMessage>
-                </div>
-
-                <div class="mb-3">
-                    <div id="Error" class="form-text">
-                        <p style="color:red">@ErrorMessage</p>
-                    </div>
-                </div>
-                <button type="submit" class="nbt btn btn-danger">Create</button>
-                <button type="button" class="nbt btn btn-danger" onclick="Return">Back</button>
-            </EditForm>
-        </div>
-    </div>
-
-
-}
-else
-{
     <div class="news">
 
         <div class="site-header">
@@ -56,7 +24,7 @@ else
                 @if (!EditShowForm && !ShowPost)
                 {
                     <div class="showPatchnotesList">
-                        <AuthorizeView Roles="Administrator">
+                        <AuthorizeView Roles="Administrator, User">
                             <button type="button" class="btn btn-danger" @onclick="() => OpenPageCreateNewPost(Type)">Create</button>
                         </AuthorizeView>
                     </div>
@@ -130,31 +98,7 @@ else
 
 
                         }
-                        else if (EditShowForm && !ShowPost)
-                        {
-                            @if (PostToUpdate != null && PostToUpdate.Id == forumPost.Id)
-                            {
-                                <EditForm Model="@PostToUpdate" OnValidSubmit="UpdatePost">
-                                    <DataAnnotationsValidator />
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Post Title</label>
-                                        <InputText type="text" class="form-control" id="titleForm" @bind-value="forumPost.Title" />
-                                        <ValidationMessage For="() => forumPost.Title" class="errorMessages"></ValidationMessage>
-
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                        <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="forumPost.Description" />
-                                        <ValidationMessage For="() => forumPost.Description" class="errorMessages"></ValidationMessage>
-                                    </div>
-
-
-                                    <button type="submit" class="nbt btn btn-danger">Update</button>
-                                    <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
-                                </EditForm>
-                            }
-                        }
+                        
                     }
                     else
                     {
@@ -165,5 +109,5 @@ else
             </div>
         }
     </div>
-}
+
 

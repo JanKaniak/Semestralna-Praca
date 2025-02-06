@@ -10,41 +10,7 @@
 
 <PageTitle>News</PageTitle>
 
-@if (CreateShowForm)
-{
-    <div class="container">
-        <div class="list-group">
-            <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
-                <DataAnnotationsValidator />
-                <div class="mb-3">
-                    <label for="title" class="form-label">Patchnote Title</label>
-                    <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title" />
-                    <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
-                </div>
 
-                <div class="mb-3">
-                    <label for="text" class="form-label">Description</label>
-                    <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description" />
-                    <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
-                </div>
-
-                <InputFile OnChange="LoadFile" />
-
-                <div class="mb-3">
-                    <div id="Error" class="form-text">
-                        <p style="color:red">@ErrorMessage</p>
-                    </div>
-                </div>
-                <button type="submit" class="nbt btn btn-danger">Create</button>
-                <button type="button" class="nbt btn btn-danger" onclick="Return">Back</button>
-            </EditForm>
-        </div>
-    </div>
-
-
-}
-else
-{
     <div class="news">
         <div>
             @if (PatchnotesList != null)
@@ -129,44 +95,7 @@ else
                                 
 
                             }
-                            else if (EditShowForm && !ShowPatchnote)
-                            {
-                                @if (PatchnoteToUpdate != null && PatchnoteToUpdate.Id == patchnote.Id)
-                                {
-                                    <EditForm Model="@PatchnoteToUpdate" OnValidSubmit="UpdatePatchnote">
-                                        <DataAnnotationsValidator />
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Patchnote Title</label>
-                                            <InputText type="text" class="form-control" id="titleForm" @bind-value="patchnote.Title" />
-                                            <ValidationMessage For="() => patchnote.Title" class="errorMessages"></ValidationMessage>
-
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                            <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="patchnote.Description" />
-                                            <ValidationMessage For="() => patchnote.Description" class="errorMessages"></ValidationMessage>
-                                        </div>
-
-                                        @code {
-                                            bool imageUploaded = false;
-                                        }
-                                        @if (!string.IsNullOrWhiteSpace(patchnote.FilePath))
-                                        {
-                                            <img src="@patchnote.FilePath" style="max-width: 50%; max-height: 50%" />
-                                            <button type="button" class="nbt btn btn-danger" @onclick="() => RemoveImage(patchnote)">Remove</button>
-                                            imageUploaded = true;
-                                        }
-                                        <InputFile OnChange="LoadFile" disabled="@imageUploaded" />
-
-                                        <div class="mb-3">
-                                            <div id="Error" class="form-text">@ErrorMessage</div>
-                                        </div>
-                                        <button type="submit" class="nbt btn btn-danger">Update</button>
-                                        <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
-                                    </EditForm>
-                                }
-                            }
+                            
                         }
                         else
                         {
@@ -183,4 +112,3 @@ else
             }
         </div>
     </div>
-}

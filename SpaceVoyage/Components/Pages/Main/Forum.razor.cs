@@ -47,57 +47,10 @@ namespace SpaceVoyage.Components.Pages.Main
             ErrorMessage = string.Empty;
             currentPageNumber = 0;
 
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
-            if (user != null)
-            {
-                if (user.Identity.IsAuthenticated)
-                {
-                    UserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    UserList = await context.Users.ToListAsync();
-
-                }
-            }
+            
         }
 
-        //Create
-        public void ShowCreateForm()
-        {
-            CreateShowForm = true;
-            NewPost = new Post();
 
-        }
-
-        public async Task CreateNewPost()
-        {
-            context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-            if (context != null)
-            {
-                if (NewPost != null)
-                {
-                    if (string.IsNullOrEmpty(NewPost.Title) || string.IsNullOrEmpty(NewPost.Description))
-                    {
-                        ErrorMessage = "All fields are required!";
-                        return;
-                    }
-                    var patchnote = context.Posts.FirstOrDefault(x => x.Title == NewPost.Title);
-                    if (patchnote != null)
-                    {
-                        ErrorMessage = "Patch with this title already exists!";
-                        return;
-                    }
-                    NewPost.UserId = Int32.Parse(UserId);
-                    NewPost.Type = "forum";
-                    context?.Posts.Add(NewPost);
-                    context?.SaveChangesAsync();
-
-                }
-            }
-            ErrorMessage = string.Empty;
-            CreateShowForm = false;
-            await ShowPosts();
-
-        }
 
 
         //Read
@@ -114,45 +67,7 @@ namespace SpaceVoyage.Components.Pages.Main
             }
         }
 
-        //Update
-        public async Task ShowEditForm(Post patchnote)
-        {
-
-            context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-            if (context != null)
-            {
-                PostToUpdate = context.Posts.FirstOrDefault(x => x.Id == patchnote.Id);
-                EditShowForm = true;
-                selectedId = patchnote.Id;
-            }
-        }
-
-        public async Task UpdatePost()
-        {
-            context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
-            if (context != null)
-            {
-                if (PostToUpdate != null)
-                {
-                    if (string.IsNullOrEmpty(PostToUpdate.Title) || string.IsNullOrEmpty(PostToUpdate.Description))
-                    {
-                        ErrorMessage = "All fields are required!";
-                        return;
-                    }
-                    var patchnote = context.Posts.FirstOrDefault(x => x.Title == PostToUpdate.Title);
-                    if (patchnote != null)
-                    {
-                        ErrorMessage = "Patch with this title already exists!";
-                        return;
-                    }
-                    context.Posts.Update(PostToUpdate);
-
-                }
-                await context.SaveChangesAsync();
-            }
-            ErrorMessage = string.Empty;
-            EditShowForm = false;
-        }
+    
 
         //Delte
         public async Task RemovePost(Post patchnote)

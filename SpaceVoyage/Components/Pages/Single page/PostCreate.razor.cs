@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SpaceVoyage.Data;
 using System.Linq;
+using System.Security.Claims;
 
 namespace SpaceVoyage.Components.Pages.Single_page
 {
@@ -26,6 +28,7 @@ namespace SpaceVoyage.Components.Pages.Single_page
 
         public int numOfPages { get; set; }
 
+
         protected override async Task OnInitializedAsync()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
@@ -33,6 +36,8 @@ namespace SpaceVoyage.Components.Pages.Single_page
             {
                 PostsList = await context.Posts.ToListAsync();
             }
+
+            
 
         }
 
@@ -54,9 +59,20 @@ namespace SpaceVoyage.Components.Pages.Single_page
                         ErrorMessage = "Patch with this title already exists!";
                         return;
                     }
-                    NewPatchnote.Type = Type;
-                    context?.Posts.Add(NewPatchnote);
-                    context?.SaveChangesAsync();
+                    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                    var user = authState.User;
+                    if (user != null)
+                    {
+                        if (user.Identity.IsAuthenticated)
+                        {
+                            NewPatchnote.UserId = Int32.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                            NewPatchnote.Type = Type;
+                            context?.Posts.Add(NewPatchnote);
+                            context?.SaveChangesAsync();
+
+                        }
+                    }
+                    
 
                 }
             }
