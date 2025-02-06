@@ -495,8 +495,6 @@ body {
             "ur rb"
             "ur .";*/
         gap: 1rem;
-        /*/display: flex; 
-        flex-direction: column;*/
         margin: auto;
         align-items: start;
         width: 100%;
@@ -661,8 +659,6 @@ body {
             "ur rb"
             "ur .";*/
         gap: 1rem;
-        /*/display: flex; 
-        flex-direction: column;*/
         margin: auto;
         align-items: start;
         width: 100%;
@@ -841,8 +837,6 @@ body {
         /*gap: 0.3rem;*/
         width: 95%;
         margin: auto;
-        /*align-items: flex-start;
-        justify-content: space-between;*/
     }
 
     .review-column-positive, .review-column-middle, .review-column-negative {
@@ -853,8 +847,6 @@ body {
             "ur rb"
             "ur .";*/
         /*gap: 1rem;*/
-        /*/display: flex; 
-        flex-direction: column;*/
         margin: auto;
         align-items: start;
         width: 100%;
@@ -870,7 +862,7 @@ body {
         
     }
 
-
+    ;
 
     .user-review {
         display: inline-block;
