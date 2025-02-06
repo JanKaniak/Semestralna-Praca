@@ -463,6 +463,54 @@ body {
         width: auto;
     }
 
+    .review-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "fn"
+            "."
+            "rb"
+            "rcph"
+            "rcp"
+            "rcnh"
+            "rcn";
+        gap: 0.3rem;
+        width: 100%;
+        margin: auto;
+        justify-content: center;
+    }
+
+    .review-column-positive, .review-column-middle, .review-column-negative {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "ur rb"
+            "ur .";
+        grid-row-gap: 1rem;
+        margin: auto;
+    }
+
+    .review-left-side {
+        grid-area: rl;
+        margin-left: 1rem;
+    }
+
+    .review-right-side {
+        grid-area: rr;
+        margin-left: 1rem;
+    }
+
+
+
+    .user-review {
+        display: grid;
+        grid-template-columns: 4fr 6fr;
+        grid-template-areas:
+            "rl rr";
+    }
+
 
 }
 
@@ -565,6 +613,54 @@ body {
             ". in in in . ";
         gap: 5px;
         /*margin: auto;*/
+    }
+
+    .review-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "fn"
+            "."
+            "rb"
+            "rcph"
+            "rcp"
+            "rcnh"
+            "rcn";
+        gap: 0.3rem;
+        width: 95%;
+        margin: auto;
+        justify-content: center;
+    }
+
+    .review-column-positive, .review-column-middle, .review-column-negative {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "ur rb"
+            "ur .";
+        grid-row-gap: 1rem;
+        margin: auto;
+    }
+
+    .review-left-side {
+        grid-area: rl;
+        margin-left: 1rem;
+    }
+
+    .review-right-side {
+        grid-area: rr;
+        margin-left: 1rem;
+    }
+
+
+
+    .user-review {
+        display: grid;
+        grid-template-columns: 4fr 6fr;
+        grid-template-areas:
+            "rl rr";
     }
 }
 
@@ -713,57 +809,46 @@ body {
 
     .review-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto auto auto auto;
         grid-template-areas:
-            "fn fn fn"
-            ". . ."
-            "rb . ."
-            "rcph rcmh rcnh"
-            "rcp rcm rcn";
+            "fn fn"
+            ". . "
+            "rb . "
+            "rcph rcnh"
+            "rcp rcn";
         gap: 0.3rem;
         width: 95%;
         margin: auto;
     }
 
-    .review-column-positive ,.review-column-middle, .review-column-negative {
+    .review-column-positive, .review-column-middle, .review-column-negative {
         display: grid;
         grid-template-columns: 3fr 1fr;
-        grid-template-rows: auto;
+        grid-template-rows: 4rem 3rem;
         grid-template-areas:
             "ur rb"
-            "ur rb";
+            "ur .";
         grid-row-gap: 1rem;
+        /*display: flex; 
+        flex-direction: column;*/
         margin: auto;
     }
 
-    .review-header {
-        grid-area: rh;
+    .review-left-side {
+        grid-area: rl;
     }
 
-    .review-date {
-        grid-area: rd;
-    }
-
-    .review-user-name {
-        grid-area: ru;
-    }
-
-    .review-rating {
+    .review-right-side {
         grid-area: rr;
     }
 
-    .review-text {
-        grid-area: rt;
-    }
+
 
     .user-review {
         display: grid;
-        grid-template-columns: 3fr 2fr 5fr;
+        grid-template-columns: 4fr 6fr;
         grid-template-areas:
-            "rh rh rh"
-            ". rd ."
-            "ru rr ."
-            ". rt rt";
+            "rl rr";
     }
 }

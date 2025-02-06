@@ -17,7 +17,7 @@
             <div style="background-color:lightgray; padding: 1rem;">
                 <div align="left">
                     <pre>Header</pre>
-                    <input type="text" class="form-control" id="reviewHeader">
+                    <InputText type="text" class="form-control" id="reviewHeader" @bind-Value="NewReview.Header"/>
                 <ValidationMessage For="() => NewReview.Header" class="errorMessages"></ValidationMessage>
                 </div>
 
@@ -41,7 +41,8 @@
 
                 <div align="left" style="margin-top: 0.8rem">
                     <div class="revier-button">
-                        <a href="#">Create</a>
+                    <button type="submit" class="btn btn-danger">Create</button>
+
                     </div>
                 </div>
             </div>

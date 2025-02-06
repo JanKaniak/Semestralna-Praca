@@ -23,6 +23,8 @@ namespace SpaceVoyage.Components.Pages.Main
         public string? UserName { get; set; }
         public bool IsOwner { get; set; }
 
+        private string? UserId { get; set; } 
+
         protected override async Task OnInitializedAsync()
         {
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
@@ -32,51 +34,34 @@ namespace SpaceVoyage.Components.Pages.Main
                 UserList = await context.Users.ToListAsync();
             }
 
-        }
-
-        public async Task CreateNewReview()
-        {
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
-
-
-            if (user.Identity.IsAuthenticated)
-            {
-                var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId != null)
+            if (user != null) { 
+                if (user.Identity.IsAuthenticated)
                 {
-                    NewReview.UserId = Int32.Parse(userId);
-                    context?.Comments?.Add(NewReview);
-                    context?.SaveChangesAsync();
-                    await JS.InvokeVoidAsync("eval", "window.location.reload();");
-
+                    UserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    
                 }
             }
 
+
         }
 
-        public async Task CreatedReview(Review review)
+        public bool CreatedReview(Review review)
         {
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
-
-
-            if (user.Identity.IsAuthenticated)
+            if (!string.IsNullOrWhiteSpace(UserId))
             {
-                var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId == null)
-                {
-                    if (userId == review.UserId.ToString())
-                    {
-                        IsOwner = true;
-                    } else
-                    {
-                        IsOwner = false;
-                    }
-                }
 
-                
+                if (UserId == review.UserId.ToString())
+                {
+                    return true;
+                }
+                if (UserList.Find(x  => x.UserId == Int32.Parse(UserId)).UserRole == "Administrator")
+                {
+                    return true;
+                }
             }
+            return false;
         }
     }
 }
