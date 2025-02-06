@@ -1,0 +1,44 @@
+﻿@page "/edit/post-{Id}"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
+
+
+ <div class="news">
+     <div class="list-group">
+        <EditForm Model="@PostToUpdate" OnValidSubmit="UpdatePatchnote">
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <label for="header" class="form-label">Patchnote Title</label>
+                <InputText type="text" class="form-control" id="titleForm" @bind-value="PostToUpdate.Title" />
+                <ValidationMessage For="() => PostToUpdate.Title" class="errorMessages"></ValidationMessage>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="text" class="form-label">Description</label>
+                <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="PostToUpdate.Description" />
+                <ValidationMessage For="() => PostToUpdate.Description" class="errorMessages"></ValidationMessage>
+            </div>
+
+            @code {
+                bool imageUploaded = false;
+            }
+            @if (!string.IsNullOrWhiteSpace(PostToUpdate.FilePath))
+            {
+                <img src="@PostToUpdate.FilePath" style="max-width: 50%; max-height: 50%" />
+                <button type="button" class="nbt btn btn-danger" @onclick="() => RemoveImage(PostToUpdate)">Remove</button>
+                imageUploaded = true;
+            }
+            <InputFile OnChange="LoadFile" disabled="@imageUploaded" />
+
+            <div class="mb-3">
+                <div id="Error" class="form-text">@ErrorMessage</div>
+            </div>
+            <button type="submit" class="nbt btn btn-danger">Update</button>
+            <button type="button" class="nbt btn btn-danger" onclick="@Return">Back</button>
+        </EditForm>
+    </div>
+</div>

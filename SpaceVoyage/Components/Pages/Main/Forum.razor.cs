@@ -38,6 +38,8 @@ namespace SpaceVoyage.Components.Pages.Main
         private string? UserId { get; set; }
         public List<User>? UserList { get; set; }
 
+        public string Type { get; } = "forum";
+
         protected override async Task OnInitializedAsync()
         {
             CreateShowForm = false;
@@ -203,6 +205,16 @@ namespace SpaceVoyage.Components.Pages.Main
                 }
             }
             return false;
+        }
+
+        public void OpenPage(Post post)
+        {
+            NavigationManager.NavigateTo($"/edit/post-{post.Id}", true);
+        }
+
+        public void OpenPageCreateNewPost(string type)
+        {
+            NavigationManager.NavigateTo($"/create-post/{type}", true);
         }
 
     }

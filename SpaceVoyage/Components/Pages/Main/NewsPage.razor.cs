@@ -21,6 +21,8 @@ namespace SpaceVoyage.Components.Pages.Main
         public int numOfPages { get; set; }
         public int pageNumberInt { get; set; }
 
+        string Type { get; } = "patchnote";
+
         protected override async Task OnInitializedAsync()
         {
             int number;
@@ -37,6 +39,29 @@ namespace SpaceVoyage.Components.Pages.Main
             }
         }
 
+        public async Task RemovePost(Post patchnote)
+        {
+            context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
+            if (context != null)
+            {
+                if (patchnote != null)
+                {
+                    context.Posts.Remove(patchnote);
+                    await context.SaveChangesAsync();
+                }
+            }
+            await JS.InvokeVoidAsync("eval", "window.location.reload();");  }
+
         public void Return() { }
+
+        public void OpenPage(Post post)
+        {
+            NavigationManager.NavigateTo($"/edit/post-{post.Id}", true);
+        }
+
+        public void OpenPageCreateNewPatchnote(string type)
+        {
+            NavigationManager.NavigateTo($"/create-post/{type}", true);
+        }
     }
 }

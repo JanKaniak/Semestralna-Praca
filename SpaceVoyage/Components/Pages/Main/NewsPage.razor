@@ -4,11 +4,23 @@
 @using SpaceVoyage.Data
 @inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
 
 
 <div class="news">
+    <div class="site-header">
+        <h1>Patchnotes</h1>
+
+    </div>
         <div class="list-group">
+
+        <div class="showPatchnotesList">
+            <AuthorizeView Roles="Administrator">
+                <button type="button" class="btn btn-danger" @onclick="() => OpenPageCreateNewPatchnote(Type)">Create</button>
+            </AuthorizeView>
+        </div>
+
             <div class="container">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -35,7 +47,7 @@
                         {
                             @if (pageNumberInt > 0)
                             {
-                                <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt)">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="/news-@(pageNumberInt)">Next</a></li>
                             }
                             else
                             {
@@ -67,8 +79,8 @@
                         </div>
                         <AuthorizeView Roles="Administrator">
                             <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                <button class="btn btn-danger btn-sm" >Edit</button>
-                                <button class="btn btn-danger btn-sm">Remove</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => OpenPage(patchnote)">Edit</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(patchnote)">Remove</button>
                             </div>
                         </AuthorizeView>
                     }

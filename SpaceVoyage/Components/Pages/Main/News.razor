@@ -60,7 +60,7 @@ else
                     {
                         <div class="showPatchnotesList">
                             <AuthorizeView Roles="Administrator">
-                                <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
+                                <button type="button" class="btn btn-danger" @onclick="() => OpenPageCreateNewPatchnote(Type)">Create</button>
                             </AuthorizeView>
                         </div>
 
@@ -120,7 +120,7 @@ else
 
                                         <AuthorizeView Roles="Administrator">
                                             <div class="adminButtonsEditRemove" role="group" aria-label="Basic example">
-                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(patchnote)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => OpenPage(patchnote)">Edit</button>
                                                 <button class="btn btn-danger btn-sm" @onclick="() => RemovePatchnote(patchnote)">Remove</button>
                                             </div>
                                         </AuthorizeView>

@@ -34,6 +34,8 @@ namespace SpaceVoyage.Components.Pages.Main
         
         public int numOfPages { get; set; }
 
+        string Type { get; } = "patchnote";
+
         protected override async Task OnInitializedAsync()
         {
             StateHasChanged();
@@ -229,6 +231,16 @@ namespace SpaceVoyage.Components.Pages.Main
                 imageUploaded = false;
                 await InvokeAsync(StateHasChanged);
             }
+        }
+
+        public void OpenPageCreateNewPatchnote(string type)
+        {
+            NavigationManager.NavigateTo($"/create-post/{type}", true);
+        }
+
+        public void OpenPage(Post post)
+        {
+            NavigationManager.NavigateTo($"/edit/post-{post.Id}", true);
         }
     }
 }

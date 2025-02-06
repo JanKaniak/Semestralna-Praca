@@ -57,7 +57,7 @@ else
                 {
                     <div class="showPatchnotesList">
                         <AuthorizeView Roles="Administrator">
-                            <button type="button" class="btn btn-danger" @onclick="ShowCreateForm">Create</button>
+                            <button type="button" class="btn btn-danger" @onclick="() => OpenPageCreateNewPost(Type)">Create</button>
                         </AuthorizeView>
                     </div>
 
@@ -119,7 +119,7 @@ else
                                         @if (CreatedPost(forumPost))
                                         {
                                             <div class="adminButtonsEditRemove" role="group" aria-label="Basic example" style="margin-top: 0.5rem; margin-bottom: 0.9rem;">
-                                                <button class="btn btn-danger btn-sm" @onclick="() => ShowEditForm(forumPost)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => OpenPage(forumPost)">Edit</button>
                                                 <button class="btn btn-danger btn-sm" @onclick="() => RemovePost(forumPost)">Remove</button>
                                             </div>
                                         }

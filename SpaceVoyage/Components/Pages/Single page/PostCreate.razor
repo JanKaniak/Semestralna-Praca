@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@page "/create-post/{Type}"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> PatchnoteDataContextFactory;
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+
+<div class="container">
+    <div class="list-group">
+        <EditForm Model="@NewPatchnote" OnValidSubmit="CreateNewPatchnote">
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <label for="title" class="form-label">Patchnote Title</label>
+                <InputText type="text" class="form-control" id="titleForm" @bind-value="NewPatchnote.Title" />
+                <ValidationMessage For="() => NewPatchnote.Title" class="errorMessages"></ValidationMessage>
+            </div>
+
+            <div class="mb-3">
+                <label for="text" class="form-label">Description</label>
+                <InputTextArea class="form-control" id="descriptionForm" rows="10" @bind-value="NewPatchnote.Description" />
+                <ValidationMessage For="() => NewPatchnote.Description" class="errorMessages"></ValidationMessage>
+            </div>
+
+            <InputFile OnChange="LoadFile" />
+
+            <div class="mb-3">
+                <div id="Error" class="form-text">
+                    <p style="color:red">@ErrorMessage</p>
+                </div>
+            </div>
+            <button type="submit" class="nbt btn btn-danger">Create</button>
+            <button type="button" class="nbt btn btn-danger" onclick="Return">Back</button>
+        </EditForm>
+    </div>
+</div>
