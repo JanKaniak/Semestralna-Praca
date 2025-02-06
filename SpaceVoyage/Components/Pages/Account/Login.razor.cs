@@ -25,7 +25,7 @@ namespace SpaceVoyage.Components.Pages.Account
             var userAccount = context.Users.FirstOrDefault(x => x.UserName == UserLoginInput.UserName);
             if (string.IsNullOrEmpty(UserLoginInput.UserName) || string.IsNullOrEmpty(UserLoginInput.Password))
             {
-                ErrorMessage = "Username and password field must be filled!";
+                ErrorMessage = "Username and password field can not be empty!";
                 return;
             }
 

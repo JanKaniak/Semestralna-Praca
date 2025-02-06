@@ -27,9 +27,8 @@ namespace SpaceVoyage.Components.Pages.Main
             context ??= await PatchnoteDataContextFactory.CreateDbContextAsync();
             if (context != null)
             {
-                ReviewsList = await context.Posts.ToListAsync();
+                //ReviewsList = await context.Posts.ToListAsync();
                 var comments = await context.Comments.ToListAsync();
-                CommentList = comments.FindAll(x => x.PostId == Int32.Parse(Id));
                 UserList = await context.Users.ToListAsync();
             }
 
@@ -47,7 +46,6 @@ namespace SpaceVoyage.Components.Pages.Main
                 if (userId != null)
                 {
                     NewComment.UserId = Int32.Parse(userId);
-                    NewComment.PostId = Int32.Parse(Id);
                     context?.Comments?.Add(NewComment);
                     context?.SaveChangesAsync();
                     await JS.InvokeVoidAsync("eval", "window.location.reload();");
