@@ -227,6 +227,7 @@ body {
 
 .user-review {
     grid-area: ur;
+    padding: 0.5rem;
     
 }
 
@@ -312,7 +313,20 @@ body {
     transform: scale(1.05);
 }
 
+
+
 @media (min-width: 480px) {
+
+    .create-review {
+        display: grid;
+        background-color: wheat;
+        width: 100%;
+        margin: auto;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+
     .news, .text-post {
         width: 100%;
         display: flex;
@@ -454,6 +468,15 @@ body {
 
 @media (min-width: 768px) {
 
+    .create-review {
+        display: grid;
+        background-color: wheat;
+        width: 100%;
+        margin: auto;
+        padding: 2rem;
+        gap: 1rem;
+    }
+
     .news, .text-post {
         width: 97%;
         margin: auto;
@@ -546,6 +569,15 @@ body {
 }
 
 @media (min-width: 1080px) {
+
+    .create-review {
+        display: grid;
+        background-color: wheat;
+        width: 90%;
+        margin: auto;
+        padding: 2rem;
+        gap: 1rem;
+    }
 
     .news, .text-post {
         width: 70%;
@@ -682,7 +714,7 @@ body {
     .review-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto 2rem auto auto auto;
+        grid-template-rows: auto auto auto auto auto;
         grid-template-areas:
             "fn fn fn"
             ". . ."

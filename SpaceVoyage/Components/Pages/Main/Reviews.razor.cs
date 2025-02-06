@@ -21,6 +21,7 @@ namespace SpaceVoyage.Components.Pages.Main
         public List<User>? UserList { get; set; }
 
         public string? UserName { get; set; }
+        public bool IsOwner { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -52,6 +53,30 @@ namespace SpaceVoyage.Components.Pages.Main
                 }
             }
 
+        }
+
+        public async Task CreatedReview(Review review)
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+
+            if (user.Identity.IsAuthenticated)
+            {
+                var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId == null)
+                {
+                    if (userId == review.UserId.ToString())
+                    {
+                        IsOwner = true;
+                    } else
+                    {
+                        IsOwner = false;
+                    }
+                }
+
+                
+            }
         }
     }
 }

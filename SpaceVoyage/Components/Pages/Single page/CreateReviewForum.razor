@@ -1,0 +1,49 @@
+﻿@page "/reviews/create-forum"
+@rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
+@using SpaceVoyage.Data
+@inject IDbContextFactory<DatabaseContext> DataContextFactory;
+@inject NavigationManager NavigationManager
+@inject ILogger<Review> Logger
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="create-review">
+    <div align="left">
+        <pre><strong>Create review</strong></pre>
+    </div>
+
+    <EditForm Model="@NewReview" OnValidSubmit="CreateNewReview">
+        <DataAnnotationsValidator />
+            <div style="background-color:lightgray; padding: 1rem;">
+                <div align="left">
+                    <pre>Header</pre>
+                    <input type="text" class="form-control" id="reviewHeader">
+                <ValidationMessage For="() => NewReview.Header" class="errorMessages"></ValidationMessage>
+                </div>
+
+                <div align="left" style="margin-top: 0.8rem;">
+                    <pre>Rating</pre>
+                    <InputSelect class="form-select" @bind-Value="NewReview.Rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option selected value="5">5</option>
+                    </InputSelect>
+                <ValidationMessage For="() => NewReview.Rating" class="errorMessages"></ValidationMessage>
+                </div>
+
+                <div align="left" style="margin-top: 0.8rem;">
+                    <pre>Text</pre>
+                    <InputTextArea class="form-control" id="reviewText" rows="10" @bind-value="NewReview.Text" />
+                    <ValidationMessage For="() => NewReview.Text" class="errorMessages"></ValidationMessage>
+                </div>
+
+                <div align="left" style="margin-top: 0.8rem">
+                    <div class="revier-button">
+                        <a href="#">Create</a>
+                    </div>
+                </div>
+            </div>
+    </EditForm>
+</div>
